@@ -5,7 +5,7 @@
 #include "Model Loading\texture.h"
 #include "Model Loading\meshLoaderObj.h"
 
-void processKeyboardInput();
+void processKeyboardInput(bool paused);
 
 float deltaTime = 0.0f;	// time between current frame and last frame
 float lastFrame = 0.0f;
@@ -18,8 +18,8 @@ glm::vec3 lightPos = glm::vec3(-180.0f, 100.0f, -200.0f);
 
 int main()
 {
-	glClearColor(0.2f, 0.8f, .0f, 1.0f);
-
+	glClearColor(0.2f, 0.2f, .6f, 1.0f);
+	glEnable(GL_DEPTH_TEST);
 	//building and compiling shader program
 	Shader shader("Shaders/vertex_shader.glsl", "Shaders/fragment_shader.glsl");
 	Shader normal_shader("Shaders/normalvertexshader.glsl", "Shaders/fragment_shader.glsl");
@@ -30,35 +30,10 @@ int main()
 	GLuint tex = loadBMP("Resources/Textures/wood.bmp");
 	GLuint tex2 = loadBMP("Resources/Textures/rock.bmp");
 	GLuint tex3 = loadBMP("Resources/Textures/orange.bmp");
-	GLuint tex4 = loadBMP("Resources/Models/ice_dyno.bmp");
+	GLuint tex4 = loadBMP("Resources/Textures/ice_dyno.bmp");
 
-	glEnable(GL_DEPTH_TEST);
 
-	//Test custom mesh loading
-	std::vector<Vertex> vert;
-	vert.push_back(Vertex());
-	vert[0].pos = glm::vec3(10.5f, 10.5f, 0.0f);
-	vert[0].textureCoords = glm::vec2(1.0f, 1.0f);
-
-	vert.push_back(Vertex());
-	vert[1].pos = glm::vec3(10.5f, -10.5f, 0.0f);
-	vert[1].textureCoords = glm::vec2(1.0f, 0.0f);
-
-	vert.push_back(Vertex());
-	vert[2].pos = glm::vec3(-10.5f, -10.5f, 0.0f);
-	vert[2].textureCoords = glm::vec2(0.0f, 0.0f);
-
-	vert.push_back(Vertex());
-	vert[3].pos = glm::vec3(-10.5f, 10.5f, 0.0f);
-	vert[3].textureCoords = glm::vec2(0.0f, 1.0f);
-
-	vert[0].normals = glm::normalize(glm::cross(vert[1].pos - vert[0].pos, vert[3].pos - vert[0].pos));
-	vert[1].normals = glm::normalize(glm::cross(vert[2].pos - vert[1].pos, vert[0].pos - vert[1].pos));
-	vert[2].normals = glm::normalize(glm::cross(vert[3].pos - vert[2].pos, vert[1].pos - vert[2].pos));
-	vert[3].normals = glm::normalize(glm::cross(vert[0].pos - vert[3].pos, vert[2].pos - vert[3].pos));
-
-	std::vector<int> ind = { 0, 1, 3,
-		1, 2, 3 };
+	
 
 	std::vector<Texture> textures;
 	textures.push_back(Texture());
@@ -80,14 +55,10 @@ int main()
 	textures_dino[0].id = tex4;
 	textures_dino[0].type = "texture_diffuse";
 
-	Mesh mesh(vert, ind, textures3);
 
-	// Create Obj files - easier :)
-	// we can add here our textures :)
+	
 	MeshLoaderObj loader;
 	Mesh sun = loader.loadObj("Resources/Models/sphere.obj");
-	Mesh box = loader.loadObj("Resources/Models/cube.obj", textures);
-	Mesh plane = loader.loadObj("Resources/Models/plane1.obj", textures2);
 	Mesh myDyno = loader.loadObj("Resources/Models/ice_dyno.obj", textures_dino);
 
 
@@ -95,20 +66,20 @@ int main()
 	while (!window.isPressed(GLFW_KEY_ESCAPE) &&
 		glfwWindowShouldClose(window.getWindow()) == 0)
 	{
+		window.handleEscapeToMenuInput();
+		window.update();
+		window.clear();
+
+		
 
 		float time = glfwGetTime();
-		window.clear();
 		float currentFrame = glfwGetTime();
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
 
-		processKeyboardInput();
+		processKeyboardInput(window.isPaused());
 
-		//test mouse input
-		if (window.isMousePressed(GLFW_MOUSE_BUTTON_LEFT))
-		{
-			std::cout << "Pressing mouse button" << std::endl;
-		}
+		
 		//// Code for the light ////
 
 		sunShader.use();
@@ -129,33 +100,8 @@ int main()
 
 		//// End code for the light ////
 
-		shader.use();
 
-		///// Test Obj files for box ////
 
-		GLuint MatrixID2 = glGetUniformLocation(shader.getId(), "MVP");
-		GLuint ModelMatrixID = glGetUniformLocation(shader.getId(), "model");
-		GLuint timeUniformLoc = glGetUniformLocation(shader.getId(), "time");
-		ModelMatrix = glm::mat4(1.0);
-		ModelMatrix = glm::translate(ModelMatrix, glm::vec3(0.0f, 0.0f, 0.0f));
-		MVP = ProjectionMatrix * ViewMatrix * ModelMatrix;
-		glUniformMatrix4fv(MatrixID2, 1, GL_FALSE, &MVP[0][0]);
-		glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &ModelMatrix[0][0]);
-		glUniform3f(glGetUniformLocation(shader.getId(), "lightColor"), lightColor.x, lightColor.y, lightColor.z);
-		glUniform3f(glGetUniformLocation(shader.getId(), "lightPos"), lightPos.x, lightPos.y, lightPos.z);
-		glUniform3f(glGetUniformLocation(shader.getId(), "viewPos"), camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z);
-
-		box.draw(shader);
-
-		///// Test plane Obj file //////
-
-		ModelMatrix = glm::mat4(1.0);
-		ModelMatrix = glm::translate(ModelMatrix, glm::vec3(0.0f, -20.0f, 0.0f));
-		MVP = ProjectionMatrix * ViewMatrix * ModelMatrix;
-		glUniformMatrix4fv(MatrixID2, 1, GL_FALSE, &MVP[0][0]);
-		glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &ModelMatrix[0][0]);
-		glUniform1f(timeUniformLoc, time);
-		plane.draw(shader);
 
 		normal_shader.use();
 
@@ -163,46 +109,40 @@ int main()
 		glUniform3f(glGetUniformLocation(normal_shader.getId(), "lightPos"), lightPos.x, lightPos.y, lightPos.z);
 		glUniform3f(glGetUniformLocation(normal_shader.getId(), "viewPos"), camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z);
 
-		std::vector<glm::vec3> hockey_stickPositions = {
-			glm::vec3(0.0f, 20.0f, 0.0f),
-			glm::vec3(0.0f, 20.0f, 30.0f),
-			glm::vec3(0.0f, 20.0f, -30.0f)
-		};
+		
+		//Render UI last
+		window.renderGUI();
+		
 
-		for (const auto& position : hockey_stickPositions) {
-			ModelMatrix = glm::mat4(1.0);
-			ModelMatrix = glm::translate(ModelMatrix, position);
-			MVP = ProjectionMatrix * ViewMatrix * ModelMatrix;
-			glUniformMatrix4fv(MatrixID2, 1, GL_FALSE, &MVP[0][0]);
-			glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &ModelMatrix[0][0]);
-			myDyno.draw(normal_shader);
-		}
-
-		window.update();
+		
 	}
 }
 
-void processKeyboardInput()
+void processKeyboardInput(bool paused)
 {
 	float cameraSpeed = 30 * deltaTime;
 
-	//translation
-	if (window.isPressed(GLFW_KEY_W))
-		camera.keyboardMoveFront(cameraSpeed);
-	if (window.isPressed(GLFW_KEY_S))
-		camera.keyboardMoveBack(cameraSpeed);
-	if (window.isPressed(GLFW_KEY_A))
-		camera.keyboardMoveLeft(cameraSpeed);
-	if (window.isPressed(GLFW_KEY_D))
-		camera.keyboardMoveRight(cameraSpeed);
-	if (window.isPressed(GLFW_KEY_SPACE))
-		camera.keyboardMoveUp(cameraSpeed);
-	if (window.isPressed(GLFW_KEY_LEFT_SHIFT))
-		camera.keyboardMoveDown(cameraSpeed);
+	if (!paused) {
+		//translation
+		if (window.isPressed(GLFW_KEY_W))
+			camera.keyboardMoveFront(cameraSpeed);
+		if (window.isPressed(GLFW_KEY_S))
+			camera.keyboardMoveBack(cameraSpeed);
+		if (window.isPressed(GLFW_KEY_A))
+			camera.keyboardMoveLeft(cameraSpeed);
+		if (window.isPressed(GLFW_KEY_D))
+			camera.keyboardMoveRight(cameraSpeed);
+		if (window.isPressed(GLFW_KEY_SPACE))
+			camera.keyboardMoveUp(cameraSpeed);
+		if (window.isPressed(GLFW_KEY_LEFT_SHIFT))
+			camera.keyboardMoveDown(cameraSpeed);
 
-	double mouseX, mouseY;
-	window.getMousePos(mouseX, mouseY);
-	camera.setCursorOrientation(mouseX, mouseY);
+		double mouseX, mouseY;
+		window.getMousePos(mouseX, mouseY);
+		camera.setCursorOrientation(mouseX, mouseY);
+	}
+
+	
 
 	
 }

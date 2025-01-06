@@ -73,6 +73,9 @@
     <IncludePath>$(SolutionDir)Dependencies\GLEW\include;$(SolutionDir)Dependencies\GLFW\include;$(SolutionDir)Dependencies\glm;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Dependencies\GLEW\libs;$(SolutionDir)Dependencies\GLFW\lib-vc2015;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>$(IncludePath)</IncludePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -90,6 +93,9 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
+    <Link>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -120,6 +126,12 @@
   <ItemGroup>
     <ClCompile Include="Camera\camera.cpp" />
     <ClCompile Include="Crosshair\Crosshair.cpp" />
+    <ClCompile Include="Graphics\imgui\imgui_impl_glfw.cpp" />
+    <ClCompile Include="Graphics\imgui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="Graphics\imgui\imgui.cpp" />
+    <ClCompile Include="Graphics\imgui\imgui_draw.cpp" />
+    <ClCompile Include="Graphics\imgui\imgui_tables.cpp" />
+    <ClCompile Include="Graphics\imgui\imgui_widgets.cpp" />
     <ClCompile Include="Graphics\window.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Model Loading\meshLoaderObj.cpp" />
@@ -130,6 +142,17 @@
   <ItemGroup>
     <ClInclude Include="Camera\camera.h" />
     <ClInclude Include="Crosshair\Crosshair.h" />
+    <ClInclude Include="Graphics\imgui\imgui_impl_glfw.h" />
+    <ClInclude Include="Graphics\imgui\imgui_impl_opengl3.h" />
+    <ClInclude Include="Graphics\imgui\imconfig.h" />
+    <ClInclude Include="Graphics\imgui\imgui.h" />
+    <ClInclude Include="Graphics\imgui\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="Graphics\imgui\imgui_internal.h" />
+    <ClInclude Include="Graphics\imgui\imstb_rectpack.h" />
+    <ClInclude Include="Graphics\imgui\imstb_textedit.h" />
+    <ClInclude Include="Graphics\imgui\imstb_truetype.h" />
+    <ClInclude Include="Graphics\InstructionsGUI.h" />
+    <ClInclude Include="Graphics\MenuGUI.h" />
     <ClInclude Include="Graphics\window.h" />
     <ClInclude Include="Model Loading\meshLoaderObj.h" />
     <ClInclude Include="Model Loading\mesh.h" />

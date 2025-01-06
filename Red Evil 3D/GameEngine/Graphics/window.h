@@ -1,7 +1,8 @@
 #include <iostream>
 #include <glew.h>
 #include <glfw3.h>
-
+#include "MenuGUI.h"
+#include "InstructionsGUI.h"
 #pragma once
 
 #define MAX_KEYBOARD 512
@@ -20,9 +21,14 @@ class Window
 
 		bool keys[MAX_KEYBOARD];
 		bool mouseButtons[MAX_MOUSE];
+		bool paused;
 		double xpos;
 		double ypos;
-	
+		double lastMenuToggleTime; // Tracks the time of the last menu toggle
+
+		MenuGUI menu;
+		InstructionsGUI instructions;
+
 	public:
 		Window(char* name, int width, int height);
 		~Window();
@@ -41,4 +47,9 @@ class Window
 
 		int getWidth();
 		int getHeight();
+
+		bool isPaused();
+
+		void handleEscapeToMenuInput();
+		void renderGUI();
 };
