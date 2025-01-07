@@ -142,11 +142,11 @@
   <ItemGroup>
     <ClInclude Include="Camera\camera.h" />
     <ClInclude Include="Crosshair\Crosshair.h" />
+    <ClInclude Include="Game\Celestials\Celestial.h" />
     <ClInclude Include="Game\Characters\Enemies\Enemy.h" />
     <ClInclude Include="Game\Characters\Friends\Friend.h" />
     <ClInclude Include="Game\Characters\Main Character\Main_Char.h" />
     <ClInclude Include="Game\Maps\Objects\Weapon.h" />
-    <ClInclude Include="Resources\GameLoader.h" />
     <ClInclude Include="Game\Maps\Map.h" />
     <ClInclude Include="Game\Maps\Objects\Animatable.h" />
     <ClInclude Include="Game\Maps\Objects\Drop.h" />
@@ -168,9 +168,12 @@
     <ClInclude Include="Model Loading\meshLoaderObj.h" />
     <ClInclude Include="Model Loading\mesh.h" />
     <ClInclude Include="Model Loading\stringTokenizer.h" />
+    <ClInclude Include="Resources\GameLoader.h" />
+    <ClInclude Include="Resources\Model Packs\CelestialPacks.h" />
     <ClInclude Include="Resources\Model Packs\CharacterPacks.h" />
     <ClInclude Include="Resources\Model Packs\DropPacks.h" />
-    <ClInclude Include="Resources\Model Packs\MapPack.h" />
+    <ClInclude Include="Resources\Model Packs\GunPacks.h" />
+    <ClInclude Include="Resources\Model Packs\MapPacks.h" />
     <ClInclude Include="Resources\Model Packs\ProjectilePacks.h" />
     <ClInclude Include="Shaders\shader.h" />
     <ClInclude Include="Model Loading\texture.h" />
@@ -179,18 +182,13 @@
     <None Include="Shaders\fragment_shader.glsl" />
     <None Include="Shaders\newshader.glsl" />
     <None Include="Shaders\normalvertexshader.glsl" />
-    <None Include="Shaders\sun_fragment_shader.glsl" />
-    <None Include="Shaders\sun_vertex_shader.glsl" />
+    <None Include="Shaders\Celestial Shaders\sun_fragment_shader.glsl" />
+    <None Include="Shaders\Celestial Shaders\sun_vertex_shader.glsl" />
     <None Include="Shaders\vertex_shader.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Textures\rock.bmp" />
     <Image Include="Resources\Textures\wood.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Object Include="Resources\Models\sphere.obj">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </Object>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

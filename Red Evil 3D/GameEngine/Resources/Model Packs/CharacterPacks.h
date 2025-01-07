@@ -10,28 +10,28 @@ enum class CharacterPack {
 };
 
 struct CharacterAttributes {
-    const float health;
-    const float runningSpeed;
-    const std::vector<CharacterPack> vulnerableTo;
-    const std::string texturePath;
-    const std::string modelPath;
+    float health;
+    float runningSpeed;
+    std::vector<CharacterPack> vulnerableTo;
+    std::string texturePath;
+    std::string modelPath;
+    std::string vertexShaderPath;
+    std::string fragmentShaderPath;
 };
 
 inline CharacterAttributes getCharacterAttributes(CharacterPack pack) {
     switch (pack) {
     case CharacterPack::Main:
-        return { 100.0f, 5.0f, {CharacterPack::Fire_Dyno, CharacterPack::Ice_Dyno, CharacterPack::Earth_Dyno}, "assets/characters/Main.png", "assets/models/Main.obj"};
+        return { 100.0f, 5.0f, {CharacterPack::Fire_Dyno, CharacterPack::Ice_Dyno, CharacterPack::Earth_Dyno},
+                 "", "../Models/Characters/main_char/main_char.obj",
+                 "", "" };
 
     case CharacterPack::Ice_Dyno:
-        return { 150.0f, 3.5f, {CharacterPack::Main}, "assets/characters/IceDyno.png", "assets/models/IceDyno.obj" };
-
-    case CharacterPack::Fire_Dyno:
-        return { 120.0f, 4.0f, {CharacterPack::Main}, "assets/characters/FireDyno.png", "assets/models/FireDyno.obj" };
-
-    case CharacterPack::Earth_Dyno:
-        return { 200.0f, 2.5f, {CharacterPack::Main}, "assets/characters/EarthDyno.png", "assets/models/EarthDyno.obj" };
+        return { 150.0f, 3.5f, {CharacterPack::Main},
+                 "", "../Models/Characters/ice_dyno/ice_dyno.obj",
+                 "", "" };
 
     default:
-        return { 0.0f, 0.0f, {}, "", "" };
+        return { 0.0f, 0.0f, {}, "", "", "", "" };
     }
 }

@@ -152,21 +152,30 @@
     <ClInclude Include="Game\Tasks\Tasks.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Resources\Model Packs\MapPack.h">
+    <ClInclude Include="Resources\Model Packs\MapPacks.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Maps\Objects\Weapon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Resources\Model Packs\GunPacks.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Resources\Model Packs\CelestialPacks.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Resources\GameLoader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Maps\Objects\Weapon.h">
+    <ClInclude Include="Game\Celestials\Celestial.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\vertex_shader.glsl" />
     <None Include="Shaders\fragment_shader.glsl" />
-    <None Include="Shaders\sun_fragment_shader.glsl" />
-    <None Include="Shaders\sun_vertex_shader.glsl" />
+    <None Include="Shaders\Celestial Shaders\sun_fragment_shader.glsl" />
+    <None Include="Shaders\Celestial Shaders\sun_vertex_shader.glsl" />
     <None Include="Shaders\normalvertexshader.glsl" />
     <None Include="Shaders\newshader.glsl" />
   </ItemGroup>
@@ -177,8 +186,5 @@
     <Image Include="Resources\Textures\rock.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <Object Include="Resources\Models\sphere.obj" />
   </ItemGroup>
 </Project>

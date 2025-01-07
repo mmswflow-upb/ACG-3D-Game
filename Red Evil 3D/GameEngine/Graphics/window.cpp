@@ -187,7 +187,7 @@ void Window::handleEscapeToMenuInput() {
 	double currentTime = glfwGetTime();
 
 	// Check if LEFT_ALT is pressed and debounce
-	if (this->isPressed(GLFW_KEY_LEFT_ALT) && (currentTime - lastMenuToggleTime >= 1.0)) {
+	if (this->isPressed(GLFW_KEY_ESCAPE) && (currentTime - lastMenuToggleTime >= 1.0)) {
 		lastMenuToggleTime = currentTime; // Update the last toggle time
 		menu.toggleVisibility();         // Toggle the menu visibility
 		paused = menu.isMenuVisible();   // Set the paused state based on menu visibility

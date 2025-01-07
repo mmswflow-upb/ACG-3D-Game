@@ -4,6 +4,7 @@
 #include "Model Loading\mesh.h"
 #include "Model Loading\texture.h"
 #include "Model Loading\meshLoaderObj.h"
+#include "Resources/GameLoader.h" // Include the GameLoader header
 
 void processKeyboardInput(bool paused);
 
@@ -20,57 +21,18 @@ int main()
 {
 	glClearColor(0.2f, 0.2f, .6f, 1.0f);
 	glEnable(GL_DEPTH_TEST);
-	//building and compiling shader program
-	Shader shader("Shaders/vertex_shader.glsl", "Shaders/fragment_shader.glsl");
-	Shader normal_shader("Shaders/normalvertexshader.glsl", "Shaders/fragment_shader.glsl");
 
-	Shader sunShader("Shaders/sun_vertex_shader.glsl", "Shaders/sun_fragment_shader.glsl");
+	// Load the sun using GameLoader
+	Mesh sun = GameLoader::loadCelestialMesh(CelestialPack::Sun);
+	Shader sunShader = GameLoader::loadCelestialShader(CelestialPack::Sun);
 
-	//Textures
-	GLuint tex = loadBMP("Resources/Textures/wood.bmp");
-	GLuint tex2 = loadBMP("Resources/Textures/rock.bmp");
-	GLuint tex3 = loadBMP("Resources/Textures/orange.bmp");
-	GLuint tex4 = loadBMP("Resources/Models/Characters/ice_dyno/ice_dyno.bmp");
-
-
-	
-
-	std::vector<Texture> textures;
-	textures.push_back(Texture());
-	textures[0].id = tex;
-	textures[0].type = "texture_diffuse";
-
-	std::vector<Texture> textures2;
-	textures2.push_back(Texture());
-	textures2[0].id = tex2;
-	textures2[0].type = "texture_diffuse";
-
-	std::vector<Texture> textures3;
-	textures3.push_back(Texture());
-	textures3[0].id = tex3;
-	textures3[0].type = "texture_diffuse";
-
-	std::vector<Texture> textures_dino;
-	textures_dino.push_back(Texture());
-	textures_dino[0].id = tex4;
-	textures_dino[0].type = "texture_diffuse";
-
-
-	
-	MeshLoaderObj loader;
-	Mesh sun = loader.loadObj("Resources/Models/sphere.obj");
-	Mesh myDyno = loader.loadObj("Resources/Models/Characters/ice_dyno/ice_dyno.obj", textures_dino);
-
-
-	//check if we close the window or press the escape button
-	while (!window.isPressed(GLFW_KEY_ESCAPE) &&
+	// Check if we close the window or press the escape button
+	while ( 
 		glfwWindowShouldClose(window.getWindow()) == 0)
 	{
 		window.handleEscapeToMenuInput();
 		window.update();
 		window.clear();
-
-		
 
 		float time = glfwGetTime();
 		float currentFrame = glfwGetTime();
@@ -79,7 +41,6 @@ int main()
 
 		processKeyboardInput(window.isPaused());
 
-		
 		//// Code for the light ////
 
 		sunShader.use();
@@ -89,33 +50,22 @@ int main()
 
 		GLuint MatrixID = glGetUniformLocation(sunShader.getId(), "MVP");
 
-		//Test for one Obj loading = light source
-
+		// Model transformation for the sun
 		glm::mat4 ModelMatrix = glm::mat4(1.0);
 		ModelMatrix = glm::translate(ModelMatrix, lightPos);
 		glm::mat4 MVP = ProjectionMatrix * ViewMatrix * ModelMatrix;
 		glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
 
+		// Render the sun
 		sun.draw(sunShader);
 
 		//// End code for the light ////
-		
-		//Render objects normally
-		normal_shader.use();
 
-		glUniform3f(glGetUniformLocation(normal_shader.getId(), "lightColor"), lightColor.x, lightColor.y, lightColor.z);
-		glUniform3f(glGetUniformLocation(normal_shader.getId(), "lightPos"), lightPos.x, lightPos.y, lightPos.z);
-		glUniform3f(glGetUniformLocation(normal_shader.getId(), "viewPos"), camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z);
-
-
-
-		
-		//Render UI last
+		// Render UI last
 		window.renderGUI();
-		
-
-		
 	}
+
+	return 0;
 }
 
 void processKeyboardInput(bool paused)
@@ -123,7 +73,7 @@ void processKeyboardInput(bool paused)
 	float cameraSpeed = 30 * deltaTime;
 
 	if (!paused) {
-		//translation
+		// Translation
 		if (window.isPressed(GLFW_KEY_W))
 			camera.keyboardMoveFront(cameraSpeed);
 		if (window.isPressed(GLFW_KEY_S))
@@ -141,5 +91,4 @@ void processKeyboardInput(bool paused)
 		window.getMousePos(mouseX, mouseY);
 		camera.setCursorOrientation(mouseX, mouseY);
 	}
-	
 }

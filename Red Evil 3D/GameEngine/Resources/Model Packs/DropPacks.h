@@ -12,23 +12,29 @@ struct DropAttributes {
     std::string texturePath;
     std::string modelPath;
     int amount;
+    std::string vertexShaderPath;
+    std::string fragmentShaderPath;
 };
 
 inline DropAttributes getDropAttributes(DropType type) {
     switch (type) {
     case DropType::HealthPack:
-        return { "assets/drops/HealthPack.png", "assets/models/HealthPack.obj", 50 };
+        return { "", "", 50, // Placeholder paths
+                 "", "" };
 
     case DropType::Ammo_30:
-        return { "assets/drops/Ammo.png", "assets/models/Ammo.obj", 30 };
+        return { "", "", 30, // Placeholder paths
+                 "", "" };
 
     case DropType::Ammo_60:
-        return { "assets/drops/Ammo.png", "assets/models/Ammo.obj", 60 };
+        return { "", "", 60, // Placeholder paths
+                 "", "" };
 
     case DropType::Antidote_Vial:
-        return { "assets/drops/AntidoteVial.png", "assets/models/AntidoteVial.obj", 1 };
+        return { "", "", 1, // Placeholder paths
+                 "", "" };
 
     default:
-        return { "", "", 0 };
+        return { "", "", 0, "", "" };
     }
 }
