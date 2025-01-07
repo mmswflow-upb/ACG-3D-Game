@@ -1,7 +1,5 @@
 #include "window.h"
-#include "../Graphics/imgui/imgui.h"
-#include "imgui/imgui_impl_glfw.h"
-#include "imgui/imgui_impl_opengl3.h"
+
 
 
 Window::Window(char* name, int width, int height)
@@ -112,12 +110,12 @@ GLFWwindow* Window::getWindow()
 	return window;
 }
 
-int Window::getWidth()
+ int Window::getWidth() const
 {
 	return width;
 }
-
-int Window::getHeight()
+  
+ int Window::getHeight() const
 {
 	return height;
 }
@@ -220,7 +218,7 @@ void Window::renderGUI() {
 
 	menu.render(paused, window);
 	//instructions.render();
-
+	
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 

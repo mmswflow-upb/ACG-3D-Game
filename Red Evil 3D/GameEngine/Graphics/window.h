@@ -1,10 +1,12 @@
+#pragma once
 #include <iostream>
 #include <glew.h>
 #include <glfw3.h>
-#include "MenuGUI.h"
-#include "InstructionsGUI.h"
-#pragma once
-
+#include "GUI/MenuGUI.h"
+#include "GUI/InstructionsGUI.h"
+#include "../Graphics/imgui/imgui.h"
+#include "imgui/imgui_impl_glfw.h"
+#include "imgui/imgui_impl_opengl3.h"
 #define MAX_KEYBOARD 512
 #define MAX_MOUSE 8
 
@@ -45,8 +47,8 @@ class Window
 		bool isPressed(int key);
 		bool isMousePressed(int button);
 
-		int getWidth();
-		int getHeight();
+		 int getWidth() const;
+		 int getHeight() const;
 
 		bool isPaused();
 

@@ -10,7 +10,7 @@ void processKeyboardInput(bool paused);
 float deltaTime = 0.0f;	// time between current frame and last frame
 float lastFrame = 0.0f;
 
-Window window("Game Engine", 800, 800);
+Window window("Red Evil: The Laylasaurus Quest", 800, 800);
 Camera camera;
 
 glm::vec3 lightColor = glm::vec3(1.0f);
@@ -30,7 +30,7 @@ int main()
 	GLuint tex = loadBMP("Resources/Textures/wood.bmp");
 	GLuint tex2 = loadBMP("Resources/Textures/rock.bmp");
 	GLuint tex3 = loadBMP("Resources/Textures/orange.bmp");
-	GLuint tex4 = loadBMP("Resources/Textures/ice_dyno.bmp");
+	GLuint tex4 = loadBMP("Resources/Models/Characters/ice_dyno/ice_dyno.bmp");
 
 
 	
@@ -59,7 +59,7 @@ int main()
 	
 	MeshLoaderObj loader;
 	Mesh sun = loader.loadObj("Resources/Models/sphere.obj");
-	Mesh myDyno = loader.loadObj("Resources/Models/ice_dyno.obj", textures_dino);
+	Mesh myDyno = loader.loadObj("Resources/Models/Characters/ice_dyno/ice_dyno.obj", textures_dino);
 
 
 	//check if we close the window or press the escape button
@@ -99,15 +99,15 @@ int main()
 		sun.draw(sunShader);
 
 		//// End code for the light ////
-
-
-
-
+		
+		//Render objects normally
 		normal_shader.use();
 
 		glUniform3f(glGetUniformLocation(normal_shader.getId(), "lightColor"), lightColor.x, lightColor.y, lightColor.z);
 		glUniform3f(glGetUniformLocation(normal_shader.getId(), "lightPos"), lightPos.x, lightPos.y, lightPos.z);
 		glUniform3f(glGetUniformLocation(normal_shader.getId(), "viewPos"), camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z);
+
+
 
 		
 		//Render UI last
@@ -141,8 +141,5 @@ void processKeyboardInput(bool paused)
 		window.getMousePos(mouseX, mouseY);
 		camera.setCursorOrientation(mouseX, mouseY);
 	}
-
-	
-
 	
 }

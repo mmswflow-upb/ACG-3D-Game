@@ -28,10 +28,9 @@ class Camera
 		Camera(glm::vec3 cameraPosition);
 		Camera(glm::vec3 cameraPosition, glm::vec3 cameraViewDirection, glm::vec3 cameraUp);
 		~Camera();
-		glm::mat4 getViewMatrix();
-		glm::vec3 getCameraPosition();
-		glm::vec3 getCameraViewDirection();
-		glm::vec3 getCameraUp();
+		glm::vec3 getCameraPosition() const;
+		glm::vec3 getCameraViewDirection() const;
+		glm::vec3 getCameraUp() const;
 
 		void keyboardMoveFront(float cameraSpeed);
 		void keyboardMoveBack(float cameraSpeed);

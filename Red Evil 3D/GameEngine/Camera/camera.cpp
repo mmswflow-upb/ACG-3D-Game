@@ -99,19 +99,18 @@ void Camera::setCursorOrientation(double x, double y) {
 
 
 
-glm::vec3 Camera::getCameraPosition()
+glm::vec3 Camera::getCameraPosition() const
 {
 	return cameraPosition;
 }
 
-glm::vec3 Camera::getCameraViewDirection()
+glm::vec3 Camera::getCameraViewDirection() const
 {
 	return cameraViewDirection;
 }
 
-glm::vec3 Camera::getCameraUp()
+glm::vec3 Camera::getCameraUp() const
 {
 	return cameraUp;
 }
-
 

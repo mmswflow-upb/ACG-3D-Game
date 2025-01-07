@@ -142,6 +142,17 @@
   <ItemGroup>
     <ClInclude Include="Camera\camera.h" />
     <ClInclude Include="Crosshair\Crosshair.h" />
+    <ClInclude Include="Game\Characters\Enemies\Enemy.h" />
+    <ClInclude Include="Game\Characters\Friends\Friend.h" />
+    <ClInclude Include="Game\Characters\Main Character\Main_Char.h" />
+    <ClInclude Include="Game\Maps\Objects\Weapon.h" />
+    <ClInclude Include="Resources\GameLoader.h" />
+    <ClInclude Include="Game\Maps\Map.h" />
+    <ClInclude Include="Game\Maps\Objects\Animatable.h" />
+    <ClInclude Include="Game\Maps\Objects\Drop.h" />
+    <ClInclude Include="Game\Projectiles\Projectile.h" />
+    <ClInclude Include="Game\Tasks\Tasks.h" />
+    <ClInclude Include="Graphics\GUI\HealthBar.h" />
     <ClInclude Include="Graphics\imgui\imgui_impl_glfw.h" />
     <ClInclude Include="Graphics\imgui\imgui_impl_opengl3.h" />
     <ClInclude Include="Graphics\imgui\imconfig.h" />
@@ -151,12 +162,16 @@
     <ClInclude Include="Graphics\imgui\imstb_rectpack.h" />
     <ClInclude Include="Graphics\imgui\imstb_textedit.h" />
     <ClInclude Include="Graphics\imgui\imstb_truetype.h" />
-    <ClInclude Include="Graphics\InstructionsGUI.h" />
-    <ClInclude Include="Graphics\MenuGUI.h" />
+    <ClInclude Include="Graphics\GUI\InstructionsGUI.h" />
+    <ClInclude Include="Graphics\GUI\MenuGUI.h" />
     <ClInclude Include="Graphics\window.h" />
     <ClInclude Include="Model Loading\meshLoaderObj.h" />
     <ClInclude Include="Model Loading\mesh.h" />
     <ClInclude Include="Model Loading\stringTokenizer.h" />
+    <ClInclude Include="Resources\Model Packs\CharacterPacks.h" />
+    <ClInclude Include="Resources\Model Packs\DropPacks.h" />
+    <ClInclude Include="Resources\Model Packs\MapPack.h" />
+    <ClInclude Include="Resources\Model Packs\ProjectilePacks.h" />
     <ClInclude Include="Shaders\shader.h" />
     <ClInclude Include="Model Loading\texture.h" />
   </ItemGroup>
