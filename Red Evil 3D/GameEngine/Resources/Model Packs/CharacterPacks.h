@@ -23,10 +23,10 @@ inline CharacterModelAttributes getCharacterModelAttributes(CharacterPack pack) 
     switch (pack) {
     case CharacterPack::Main:
         return {
-            "../Models/Characters/main_char/main_char.obj",
-            "../../Shaders/Characters Shaders/mc_normal_vertex_shader.glsl",
-            "../../Shaders/Characters Shaders/mc_normal_fragment_shader.glsl",
-            "../Models/Characters/main_char/main_char.bmp" // Texture path
+            "Resources/Models/Characters/main_char/main_char.obj",
+            "Shaders/Characters Shaders/mc_normal_vertex_shader.glsl",
+            "Shaders/Characters Shaders/mc_normal_fragment_shader.glsl",
+            "Resources/Models/Characters/main_char/main_char.bmp" // Texture path
         };
 
     case CharacterPack::Ice_Dyno:
@@ -72,45 +72,46 @@ struct CharacterGameAttributes {
     std::vector<ProjectileType> vulnerableTo;
 };
 
-/// Function to get character game attributes
-inline CharacterGameAttributes getCharacterGameAttributes(CharacterPack pack) {
+/// Function to set character game attributes
+inline void getCharacterGameAttributes(CharacterPack pack,
+    float& health,
+    float& speed,
+    std::vector<ProjectileType>& vulnerableTo) {
     switch (pack) {
     case CharacterPack::Main:
-        return {
-            100.0f,
-            5.0f,
-            { ProjectileType::Fireball, ProjectileType::IceShard }
-        };
+        health = 100.0f;
+        speed = 5.0f;
+        vulnerableTo = { ProjectileType::Fireball, ProjectileType::IceShard };
+        break;
 
     case CharacterPack::Ice_Dyno:
-        return {
-            150.0f,
-            3.5f,
-            { ProjectileType::Bullet }
-        };
+        health = 150.0f;
+        speed = 3.5f;
+        vulnerableTo = { ProjectileType::Bullet };
+        break;
 
     case CharacterPack::Fire_Dyno:
-        return {
-            120.0f,
-            4.0f,
-            { ProjectileType::Bullet }
-        };
+        health = 120.0f;
+        speed = 4.0f;
+        vulnerableTo = { ProjectileType::Bullet };
+        break;
 
     case CharacterPack::Earth_Dyno:
-        return {
-            200.0f,
-            2.5f,
-            { ProjectileType::IceShard }
-        };
+        health = 200.0f;
+        speed = 2.5f;
+        vulnerableTo = { ProjectileType::IceShard };
+        break;
 
     case CharacterPack::Friend:
-        return {
-            100.0f,
-            4.0f,
-            { ProjectileType::Fireball, ProjectileType::IceShard }
-        };
+        health = 100.0f;
+        speed = 4.0f;
+        vulnerableTo = { ProjectileType::Fireball, ProjectileType::IceShard };
+        break;
 
     default:
-        return { 0.0f, 0.0f, {} };
+        health = 0.0f;
+        speed = 0.0f;
+        vulnerableTo.clear();
+        break;
     }
 }

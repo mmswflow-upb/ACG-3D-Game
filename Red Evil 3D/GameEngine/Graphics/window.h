@@ -24,6 +24,8 @@ class Window
 		bool keys[MAX_KEYBOARD];
 		bool mouseButtons[MAX_MOUSE];
 		bool paused;
+		bool animatingLiquids;
+		bool spectateMode;
 		double xpos;
 		double ypos;
 		double lastMenuToggleTime; // Tracks the time of the last menu toggle
@@ -51,6 +53,8 @@ class Window
 		 int getHeight() const;
 
 		bool isPaused();
+		bool isSpectating();
+		bool isAnimatingLiquids();
 
 		void handleEscapeToMenuInput();
 		void renderGUI();

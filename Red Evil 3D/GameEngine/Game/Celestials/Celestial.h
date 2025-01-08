@@ -33,9 +33,34 @@ public:
     void update(float deltaTime) {
         currentAngle += orbitSpeed * deltaTime;
 
-        // Calculate circular orbit around XZ plane
-        currentPosition.x = orbitRadius * glm::cos(currentAngle);
+        // Calculate circular orbit around YZ plane
+        currentPosition.y = orbitRadius * glm::cos(currentAngle);
         currentPosition.z = orbitRadius * glm::sin(currentAngle);
+    }
+
+
+    float getTime() const {
+        // Return the normalized time (0.0 to 1.0) based on the current angle in the orbit
+        return currentAngle / (2.0f * glm::pi<float>());
+    }
+
+    static void determineTimeAndSetLight(Celestial& sun, Celestial& moon, glm::vec3& lightColor, glm::vec3& lightPos) {
+        float sunTime = sun.getTime(); // Sun's position in the orbit
+        float moonTime = moon.getTime(); // Moon's position in the orbit
+
+        // Normalize time (0 to 1) to divide the orbit into day and night
+        bool isDay = (sunTime >= 0.25f && sunTime <= 0.75f); // Sun dominates during this range
+
+        if (isDay) {
+            // Daytime: Sun is the light source
+            lightColor = glm::vec3(1.0f, 0.9f, 0.7f); // Bright yellowish light
+            lightPos = sun.getPosition();
+        }
+        else {
+            // Nighttime: Moon is the light source
+            lightColor = glm::vec3(0.7f, 0.7f, 1.0f); // Soft bluish light
+            lightPos = moon.getPosition();
+        }
     }
 
     void render(const glm::mat4& projectionMatrix, const glm::mat4& viewMatrix) {

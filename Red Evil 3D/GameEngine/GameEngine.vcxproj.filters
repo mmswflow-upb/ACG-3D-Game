@@ -36,9 +36,6 @@
     <ClCompile Include="Model Loading\meshLoaderObj.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Crosshair\Crosshair.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Graphics\imgui\imgui_draw.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -78,9 +75,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Model Loading\stringTokenizer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Crosshair\Crosshair.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\GUI\MenuGUI.h">

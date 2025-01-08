@@ -28,40 +28,59 @@ Camera::~Camera()
 {
 }
 
-void Camera::keyboardMoveFront(float cameraSpeed)
+void Camera::keyboardMoveFront(float cameraSpeed, bool spectateMode)
 {
-	cameraPosition += cameraViewDirection * cameraSpeed ;
+	float originalY = cameraPosition.y; // Store the current y position
+	cameraPosition += cameraViewDirection * cameraSpeed;
+	if (!spectateMode) {
+		cameraPosition.y = originalY; // Restore the original y position
+	}
 }
 
-void Camera::keyboardMoveBack(float cameraSpeed)
+void Camera::keyboardMoveBack(float cameraSpeed, bool spectateMode)
 {
-	cameraPosition -= cameraViewDirection * cameraSpeed ;
+	float originalY = cameraPosition.y; // Store the current y position
+	cameraPosition -= cameraViewDirection * cameraSpeed;
+	if (!spectateMode) {
+		cameraPosition.y = originalY; // Restore the original y position
+	}
 }
 
-void Camera::keyboardMoveLeft(float cameraSpeed)
+void Camera::keyboardMoveLeft(float cameraSpeed, bool spectateMode)
 {
+	float originalY = cameraPosition.y; // Store the current y position
 	cameraRight = glm::cross(cameraViewDirection, cameraUp);
-
-	cameraPosition -= cameraRight * cameraSpeed ;
+	cameraPosition -= cameraRight * cameraSpeed;
+	if (!spectateMode) {
+		cameraPosition.y = originalY; // Restore the original y position
+	}
 }
 
-void Camera::keyboardMoveRight(float cameraSpeed)
+void Camera::keyboardMoveRight(float cameraSpeed, bool spectateMode)
 {
+	float originalY = cameraPosition.y; // Store the current y position
 	cameraRight = glm::cross(cameraViewDirection, cameraUp);
-
-	cameraPosition += cameraRight * cameraSpeed ;
-
+	cameraPosition += cameraRight * cameraSpeed;
+	if (!spectateMode) {
+		cameraPosition.y = originalY; // Restore the original y position
+	}
 }
 
-void Camera::keyboardMoveUp(float cameraSpeed)
+void Camera::keyboardMoveUp(float cameraSpeed, bool spectateMode)
 {
+
+	if (!spectateMode) {
+		return;
+	}
 
 	cameraPosition += cameraUp * cameraSpeed ;
 }
 
-void Camera::keyboardMoveDown(float cameraSpeed)
+void Camera::keyboardMoveDown(float cameraSpeed, bool spectateMode)
 {
-
+	if (!spectateMode) {
+		return;
+	}
 	cameraPosition -= cameraUp * cameraSpeed ;
 }
 

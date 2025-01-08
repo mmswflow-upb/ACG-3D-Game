@@ -8,6 +8,9 @@ Window::Window(char* name, int width, int height)
 	this -> width = width;
 	this -> height = height;
 	this->paused = false;
+	this->animatingLiquids = true;
+	this->spectateMode = false;
+
 	this->lastMenuToggleTime = 0.0;
 	init();
 
@@ -208,6 +211,13 @@ bool Window::isPaused() {
 	return paused;
 }
 
+bool Window::isAnimatingLiquids() {
+	return animatingLiquids;
+}
+
+bool Window::isSpectating() {
+	return spectateMode;
+}
 
 void Window::renderGUI() {
 
@@ -216,7 +226,7 @@ void Window::renderGUI() {
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
 
-	menu.render(paused, window);
+	menu.render(paused, spectateMode, animatingLiquids,window);
 	//instructions.render();
 	
 	ImGui::Render();

@@ -21,7 +21,7 @@ public:
         return isVisible;
     }
 
-    void MenuGUI::render(bool& paused, GLFWwindow* window) {
+    void MenuGUI::render(bool& paused, bool& spectating, bool& animatingLiquids,GLFWwindow* window) {
         if (!isVisible) return;
 
         // Get the window size
@@ -62,7 +62,7 @@ public:
         float buttonWidth = menuWidth * 0.6f; // Buttons are 60% of menu width
         ImGui::SetCursorPosX((menuSize.x - buttonWidth) / 2.0f);
         if (ImGui::Checkbox("Spectate Mode", &spectateMode)) {
-            std::cout << "Spectate Mode toggled to: " << spectateMode << std::endl;
+            spectating = !spectating;
         }
 
         // Add some spacing
@@ -71,7 +71,7 @@ public:
         // Centered Checkbox: Show Liquid Animation
         ImGui::SetCursorPosX((menuSize.x - buttonWidth) / 2.0f);
         if (ImGui::Checkbox("Show Liquid Animation", &showLiquidAnimation)) {
-            std::cout << "Liquid Animation toggled to: " << showLiquidAnimation << std::endl;
+            animatingLiquids = !animatingLiquids;
         }
 
         // Add some spacing before moving to the bottom

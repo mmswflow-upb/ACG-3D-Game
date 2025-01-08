@@ -23,7 +23,7 @@ public:
         position = glm::vec3(0.0f);
     }
 
-    void render(const glm::mat4& projectionMatrix, const glm::mat4& viewMatrix) {
+    void render(const glm::mat4& projectionMatrix, const glm::mat4& viewMatrix, glm::vec3 lightColor, glm::vec3 lightPos, Camera& camera) {
         shader.use();
 
         // Set the model matrix for the drop
@@ -34,6 +34,9 @@ public:
 
         // Pass the MVP matrix to the shader
         glUniformMatrix4fv(glGetUniformLocation(shader.getId(), "MVP"), 1, GL_FALSE, &MVP[0][0]);
+        glUniform3f(glGetUniformLocation(shader.getId(), "lightColor"), lightColor.x, lightColor.y, lightColor.z);
+        glUniform3f(glGetUniformLocation(shader.getId(), "lightPos"), lightPos.x, lightPos.y, lightPos.z);
+        glUniform3f(glGetUniformLocation(shader.getId(), "viewPos"), camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z);
 
         // Draw the mesh
         mesh.draw(shader);

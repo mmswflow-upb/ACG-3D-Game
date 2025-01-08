@@ -125,7 +125,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera\camera.cpp" />
-    <ClCompile Include="Crosshair\Crosshair.cpp" />
     <ClCompile Include="Graphics\imgui\imgui_impl_glfw.cpp" />
     <ClCompile Include="Graphics\imgui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="Graphics\imgui\imgui.cpp" />
@@ -141,7 +140,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera\camera.h" />
-    <ClInclude Include="Crosshair\Crosshair.h" />
     <ClInclude Include="Game\Celestials\Celestial.h" />
     <ClInclude Include="Game\Characters\Enemies\Enemy.h" />
     <ClInclude Include="Game\Characters\Friends\Friend.h" />
