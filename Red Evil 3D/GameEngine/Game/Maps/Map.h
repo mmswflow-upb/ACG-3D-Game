@@ -1,76 +1,106 @@
 #pragma once
 #include <vector>
-#include <string>
-#include "../Entities/Enemies/Enemy.h"
-#include "Objects/Drop.h"
-#include "Objects/Animatable.h"
+#include <glm.hpp>
+#include "../Characters/Enemies/Enemy.h"
+#include "../Characters/Main Character/Main_Char.h"
+#include "../Characters/Friends/Friend.h"
+#include "../Tools/Drop.h"
+#include "../Maps/Objects/Animatable.h"
+#include "../Projectiles/Projectile.h"
 #include "../../Shaders/shader.h"
 #include "../../Model Loading/mesh.h"
-#include "../../Camera/camera.h"
-#include "../../Graphics/window.h"
+#include "../../Resources/Model Packs/MapPacks.h"
 
 class Map {
 private:
     std::vector<Enemy> enemies;
-    std::vector<Drop> Drops;
+    std::vector<Main_Char> mainCharacters;
+    std::vector<Friend> friends;
+    std::vector<Drop> drops;
     std::vector<Animatable> animatables;
+    std::vector<Projectile> projectiles;
 
-    Shader mapShader;
-    Mesh terrain;
-
-    void loadTerrain(const std::string& terrainPath, const std::string& vertexShader, const std::string& fragmentShader) {
-        MeshLoaderObj loader;
-        terrain = loader.loadObj(terrainPath);
-        mapShader = Shader(vertexShader, fragmentShader);
-    }
+    Mesh terrainMesh;
+    Shader shader;
+    glm::vec3 ambientColor;
 
 public:
-    Map(const std::string& terrainPath, const std::string& vertexShader, const std::string& fragmentShader) {
-        loadTerrain(terrainPath, vertexShader, fragmentShader);
+    Map(const Mesh& loadedMesh, const Shader& loadedShader, MapPack pack)
+        : terrainMesh(loadedMesh), shader(loadedShader) {
+        auto attributes = getMapModelAttributes(pack);
+        ambientColor = attributes.ambientColor;
     }
 
-    void addEnemy(const std::string& modelPath, const std::string& texturePath) {
-        enemies.emplace_back(modelPath, texturePath);
-    }
+    // Add methods
+    void addEnemy(const Enemy& enemy) { enemies.push_back(enemy); }
+    void addMainCharacter(const Main_Char& mainChar) { mainCharacters.push_back(mainChar); }
+    void addFriend(const Friend& friendChar) { friends.push_back(friendChar); }
+    void addDrop(const Drop& drop) { drops.push_back(drop); }
+    void addAnimatable(const Animatable& animatable) { animatables.push_back(animatable); }
+    void addProjectile(const Projectile& projectile) { projectiles.push_back(projectile); }
 
-    void addDrop(const std::string& modelPath, const std::string& texturePath) {
-        Drops.emplace_back(modelPath, texturePath);
-    }
+    // Clear methods
+    void clearEnemies() { enemies.clear(); }
+    void clearMainCharacters() { mainCharacters.clear(); }
+    void clearFriends() { friends.clear(); }
+    void clearDrops() { drops.clear(); }
+    void clearAnimatables() { animatables.clear(); }
+    void clearProjectiles() { projectiles.clear(); }
 
-    void addAnimatable(const std::string& modelPath, const std::string& vertexShader, const std::string& fragmentShader) {
-        animatables.emplace_back(modelPath, vertexShader, fragmentShader);
-    }
-
-    void update(Window& window, float deltaTime) {
-        if (!window.isPaused()) {
-            for (auto& enemy : enemies) {
-                enemy.update(deltaTime);
-            }
+    // Update all projectiles
+    void updateProjectiles(float deltaTime) {
+        for (auto& projectile : projectiles) {
+            projectile.move(deltaTime);
         }
-        for (auto& animatable : animatables) {
-            animatable.update(deltaTime);
-        }
     }
 
-    void render(const Camera& camera, Window& window) {
-        mapShader.use();
-        glm::mat4 projectionMatrix = glm::perspective(90.0f, window.getWidth() * 1.0f / window.getHeight(), 0.1f, 1000.0f);
-        glm::mat4 viewMatrix = glm::lookAt(camera.getCameraPosition(), camera.getCameraPosition() + camera.getCameraViewDirection(), camera.getCameraUp());
+    // Render the map
+    void render(const glm::mat4& projectionMatrix, const glm::mat4& viewMatrix) {
+        shader.use();
+
         glm::mat4 modelMatrix = glm::mat4(1.0f);
-
         glm::mat4 MVP = projectionMatrix * viewMatrix * modelMatrix;
-        glUniformMatrix4fv(glGetUniformLocation(mapShader.getId(), "MVP"), 1, GL_FALSE, &MVP[0][0]);
+        glUniformMatrix4fv(glGetUniformLocation(shader.getId(), "MVP"), 1, GL_FALSE, &MVP[0][0]);
+        glUniform3f(glGetUniformLocation(shader.getId(), "ambientColor"), ambientColor.x, ambientColor.y, ambientColor.z);
 
-        terrain.draw(mapShader);
+        terrainMesh.draw(shader);
 
+        // Render enemies
         for (auto& enemy : enemies) {
-            enemy.render(camera, window);
+            enemy.render(projectionMatrix, viewMatrix);
         }
-        for (auto& Drop : Drops) {
-            Drop.render(camera, window);
+
+        // Render main characters
+        for (auto& mainChar : mainCharacters) {
+            mainChar.render(projectionMatrix, viewMatrix);
         }
+
+        // Render friends
+        for (auto& friendChar : friends) {
+            friendChar.render(projectionMatrix, viewMatrix);
+        }
+
+        // Render drops
+        for (auto& drop : drops) {
+            drop.render(projectionMatrix, viewMatrix);
+        }
+
+        // Render animatables
         for (auto& animatable : animatables) {
-            animatable.render(camera, window);
+            animatable.render(projectionMatrix, viewMatrix);
+        }
+
+        // Render projectiles
+        for (auto& projectile : projectiles) {
+            projectile.render(projectionMatrix, viewMatrix);
         }
     }
+
+    // Getters
+    const std::vector<Enemy>& getEnemies() const { return enemies; }
+    const std::vector<Main_Char>& getMainCharacters() const { return mainCharacters; }
+    const std::vector<Friend>& getFriends() const { return friends; }
+    const std::vector<Drop>& getDrops() const { return drops; }
+    const std::vector<Animatable>& getAnimatables() const { return animatables; }
+    const std::vector<Projectile>& getProjectiles() const { return projectiles; }
 };

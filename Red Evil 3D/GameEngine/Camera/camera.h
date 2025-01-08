@@ -41,5 +41,7 @@ class Camera
 
 		void setCursorOrientation(double x, double y);
 
+
+		void setCameraPosition(glm::vec3);
 };
 

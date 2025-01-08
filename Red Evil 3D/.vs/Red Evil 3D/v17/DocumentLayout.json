@@ -7,8 +7,8 @@
       "RelativeMoniker": "D:0:0:{7DB4A041-6210-429F-8FF3-63462ADD6A69}|GameEngine\\GameEngine.vcxproj|solutionrelative:GameEngine\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7DB4A041-6210-429F-8FF3-63462ADD6A69}|GameEngine\\GameEngine.vcxproj|C:\\Users\\Mario Sakka\\Documents\\PrivateFilesFaculty\\Year III\\Semester 1\\Advanced Computer Graphics\\ACG-Project\\Part II\\ACG-3D-Game\\Red Evil 3D\\GameEngine\\Resources\\Model Packs\\CelestialPacks.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{7DB4A041-6210-429F-8FF3-63462ADD6A69}|GameEngine\\GameEngine.vcxproj|solutionrelative:GameEngine\\Resources\\Model Packs\\CelestialPacks.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{7DB4A041-6210-429F-8FF3-63462ADD6A69}|GameEngine\\GameEngine.vcxproj|C:\\Users\\Mario Sakka\\Documents\\PrivateFilesFaculty\\Year III\\Semester 1\\Advanced Computer Graphics\\ACG-Project\\Part II\\ACG-3D-Game\\Red Evil 3D\\GameEngine\\Game\\Maps\\Map.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{7DB4A041-6210-429F-8FF3-63462ADD6A69}|GameEngine\\GameEngine.vcxproj|solutionrelative:GameEngine\\Game\\Maps\\Map.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{7DB4A041-6210-429F-8FF3-63462ADD6A69}|GameEngine\\GameEngine.vcxproj|C:\\Users\\Mario Sakka\\Documents\\PrivateFilesFaculty\\Year III\\Semester 1\\Advanced Computer Graphics\\ACG-Project\\Part II\\ACG-3D-Game\\Red Evil 3D\\GameEngine\\Resources\\GameLoader.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -22,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -31,27 +31,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "CelestialPacks.h",
-              "DocumentMoniker": "C:\\Users\\Mario Sakka\\Documents\\PrivateFilesFaculty\\Year III\\Semester 1\\Advanced Computer Graphics\\ACG-Project\\Part II\\ACG-3D-Game\\Red Evil 3D\\GameEngine\\Resources\\Model Packs\\CelestialPacks.h",
-              "RelativeDocumentMoniker": "GameEngine\\Resources\\Model Packs\\CelestialPacks.h",
-              "ToolTip": "C:\\Users\\Mario Sakka\\Documents\\PrivateFilesFaculty\\Year III\\Semester 1\\Advanced Computer Graphics\\ACG-Project\\Part II\\ACG-3D-Game\\Red Evil 3D\\GameEngine\\Resources\\Model Packs\\CelestialPacks.h",
-              "RelativeToolTip": "GameEngine\\Resources\\Model Packs\\CelestialPacks.h",
-              "ViewState": "AgIAAAEAAAAAAAAAAAAIwB4AAAANAAAAAAAAAA==",
+              "Title": "Map.h",
+              "DocumentMoniker": "C:\\Users\\Mario Sakka\\Documents\\PrivateFilesFaculty\\Year III\\Semester 1\\Advanced Computer Graphics\\ACG-Project\\Part II\\ACG-3D-Game\\Red Evil 3D\\GameEngine\\Game\\Maps\\Map.h",
+              "RelativeDocumentMoniker": "GameEngine\\Game\\Maps\\Map.h",
+              "ToolTip": "C:\\Users\\Mario Sakka\\Documents\\PrivateFilesFaculty\\Year III\\Semester 1\\Advanced Computer Graphics\\ACG-Project\\Part II\\ACG-3D-Game\\Red Evil 3D\\GameEngine\\Game\\Maps\\Map.h",
+              "RelativeToolTip": "GameEngine\\Game\\Maps\\Map.h",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABgAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-01-07T02:57:07.964Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "GameLoader.h",
-              "DocumentMoniker": "C:\\Users\\Mario Sakka\\Documents\\PrivateFilesFaculty\\Year III\\Semester 1\\Advanced Computer Graphics\\ACG-Project\\Part II\\ACG-3D-Game\\Red Evil 3D\\GameEngine\\Resources\\GameLoader.h",
-              "RelativeDocumentMoniker": "GameEngine\\Resources\\GameLoader.h",
-              "ToolTip": "C:\\Users\\Mario Sakka\\Documents\\PrivateFilesFaculty\\Year III\\Semester 1\\Advanced Computer Graphics\\ACG-Project\\Part II\\ACG-3D-Game\\Red Evil 3D\\GameEngine\\Resources\\GameLoader.h",
-              "RelativeToolTip": "GameEngine\\Resources\\GameLoader.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAeAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-01-07T02:55:16.836Z",
+              "WhenOpened": "2025-01-08T00:22:15.086Z",
               "EditorCaption": ""
             },
             {
@@ -62,9 +49,22 @@
               "RelativeDocumentMoniker": "GameEngine\\main.cpp",
               "ToolTip": "C:\\Users\\Mario Sakka\\Documents\\PrivateFilesFaculty\\Year III\\Semester 1\\Advanced Computer Graphics\\ACG-Project\\Part II\\ACG-3D-Game\\Red Evil 3D\\GameEngine\\main.cpp",
               "RelativeToolTip": "GameEngine\\main.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAxAAAAAAAAAA==",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAACwAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-01-07T01:44:50.845Z",
+              "WhenOpened": "2025-01-08T00:20:18.061Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "GameLoader.h",
+              "DocumentMoniker": "C:\\Users\\Mario Sakka\\Documents\\PrivateFilesFaculty\\Year III\\Semester 1\\Advanced Computer Graphics\\ACG-Project\\Part II\\ACG-3D-Game\\Red Evil 3D\\GameEngine\\Resources\\GameLoader.h",
+              "RelativeDocumentMoniker": "GameEngine\\Resources\\GameLoader.h",
+              "ToolTip": "C:\\Users\\Mario Sakka\\Documents\\PrivateFilesFaculty\\Year III\\Semester 1\\Advanced Computer Graphics\\ACG-Project\\Part II\\ACG-3D-Game\\Red Evil 3D\\GameEngine\\Resources\\GameLoader.h",
+              "RelativeToolTip": "GameEngine\\Resources\\GameLoader.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-01-07T15:14:22.829Z",
               "EditorCaption": ""
             }
           ]

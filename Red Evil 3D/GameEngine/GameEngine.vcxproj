@@ -146,10 +146,10 @@
     <ClInclude Include="Game\Characters\Enemies\Enemy.h" />
     <ClInclude Include="Game\Characters\Friends\Friend.h" />
     <ClInclude Include="Game\Characters\Main Character\Main_Char.h" />
-    <ClInclude Include="Game\Maps\Objects\Weapon.h" />
+    <ClInclude Include="Game\Tools\Gun.h" />
     <ClInclude Include="Game\Maps\Map.h" />
     <ClInclude Include="Game\Maps\Objects\Animatable.h" />
-    <ClInclude Include="Game\Maps\Objects\Drop.h" />
+    <ClInclude Include="Game\Tools\Drop.h" />
     <ClInclude Include="Game\Projectiles\Projectile.h" />
     <ClInclude Include="Game\Tasks\Tasks.h" />
     <ClInclude Include="Graphics\GUI\HealthBar.h" />
@@ -169,6 +169,7 @@
     <ClInclude Include="Model Loading\mesh.h" />
     <ClInclude Include="Model Loading\stringTokenizer.h" />
     <ClInclude Include="Resources\GameLoader.h" />
+    <ClInclude Include="Resources\Model Packs\AnimatablePacks.h" />
     <ClInclude Include="Resources\Model Packs\CelestialPacks.h" />
     <ClInclude Include="Resources\Model Packs\CharacterPacks.h" />
     <ClInclude Include="Resources\Model Packs\DropPacks.h" />
@@ -179,16 +180,16 @@
     <ClInclude Include="Model Loading\texture.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Shaders\Characters Shaders\mc_normal_fragment_shader.glsl" />
+    <None Include="Shaders\Characters Shaders\mc_normal_vertex_shader.glsl" />
     <None Include="Shaders\fragment_shader.glsl" />
+    <None Include="Shaders\Maps Shaders\map_normal_vertex_shader.glsl" />
+    <None Include="Shaders\Maps Shaders\map_normal_fragment_shader.glsl" />
     <None Include="Shaders\newshader.glsl" />
     <None Include="Shaders\normalvertexshader.glsl" />
     <None Include="Shaders\Celestial Shaders\sun_fragment_shader.glsl" />
     <None Include="Shaders\Celestial Shaders\sun_vertex_shader.glsl" />
     <None Include="Shaders\vertex_shader.glsl" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Resources\Textures\rock.bmp" />
-    <Image Include="Resources\Textures\wood.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

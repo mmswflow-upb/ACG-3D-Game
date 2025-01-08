@@ -98,6 +98,9 @@ void Camera::setCursorOrientation(double x, double y) {
 }
 
 
+void Camera::setCameraPosition(glm::vec3 newPos) {
+	cameraPosition = newPos;
+}
 
 glm::vec3 Camera::getCameraPosition() const
 {

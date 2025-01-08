@@ -12,8 +12,6 @@
 #include "Model Packs/DropPacks.h"
 #include "Model Packs/MapPacks.h"
 
-
-
 class GameLoader {
 private:
     // Helper function to load a single texture
@@ -27,64 +25,87 @@ private:
     }
 
 public:
-    // Load Celestial Mesh
+    // Load Celestial Mesh and Shader
     static Mesh loadCelestialMesh(CelestialPack pack) {
-        CelestialAttributes attributes = getCelestialAttributes(pack);
+        CelestialModelAttributes attributes = getCelestialModelAttributes(pack);
         MeshLoaderObj loader;
-        
         if (!attributes.texturePath.empty()) {
             auto textures = loadTexture(attributes.texturePath);
             return loader.loadObj(attributes.modelPath, textures);
-
         }
-        
         return loader.loadObj(attributes.modelPath);
-            
-        
-
     }
 
-    // Load Celestial Shader
     static Shader loadCelestialShader(CelestialPack pack) {
-        CelestialAttributes attributes = getCelestialAttributes(pack);
+        CelestialModelAttributes attributes = getCelestialModelAttributes(pack);
         return Shader(attributes.vertexShaderPath.c_str(), attributes.fragmentShaderPath.c_str());
     }
 
-    // Load Character Mesh
+    // Load Character Mesh and Shader
     static Mesh loadCharacterMesh(CharacterPack pack) {
-        CharacterAttributes attributes = getCharacterAttributes(pack);
+        CharacterModelAttributes attributes = getCharacterModelAttributes(pack);
         MeshLoaderObj loader;
         auto textures = loadTexture(attributes.texturePath);
         return loader.loadObj(attributes.modelPath, textures);
     }
 
-    // Load Projectile Mesh
+    static Shader loadCharacterShader(CharacterPack pack) {
+        CharacterModelAttributes attributes = getCharacterModelAttributes(pack);
+        return Shader(attributes.vertexShaderPath.c_str(), attributes.fragmentShaderPath.c_str());
+    }
+
+    // Load Projectile Mesh and Shader
     static Mesh loadProjectileMesh(ProjectileType type) {
-        ProjectileAttributes attributes = getProjectileAttributes(type);
+        ProjectileModelAttributes attributes = getProjectileModelAttributes(type);
         MeshLoaderObj loader;
         auto textures = loadTexture(attributes.texturePath);
         return loader.loadObj(attributes.modelPath, textures);
     }
 
-    // Load Drop Mesh
+    static Shader loadProjectileShader(ProjectileType type) {
+        ProjectileModelAttributes attributes = getProjectileModelAttributes(type);
+        return Shader(attributes.vertexShaderPath.c_str(), attributes.fragmentShaderPath.c_str());
+    }
+
+    // Load Drop Mesh and Shader
     static Mesh loadDropMesh(DropType type) {
-        DropAttributes attributes = getDropAttributes(type);
+        DropModelAttributes attributes = getDropModelAttributes(type);
         MeshLoaderObj loader;
         auto textures = loadTexture(attributes.texturePath);
         return loader.loadObj(attributes.modelPath, textures);
     }
 
-    // Load Map Mesh
-    static Mesh loadMapMesh(MapPack pack) {
-        MapAttributes attributes = getMapAttributes(pack);
-        MeshLoaderObj loader;
-        auto textures = loadTexture(attributes.texturePath);
-        return loader.loadObj(attributes.terrainModel, textures);
+    static Shader loadDropShader(DropType type) {
+        DropModelAttributes attributes = getDropModelAttributes(type);
+        return Shader(attributes.vertexShaderPath.c_str(), attributes.fragmentShaderPath.c_str());
     }
 
-    // Load Map Shader
+    // Load Gun Mesh and Shader
+    static Mesh loadGunMesh(GunPack pack) {
+        GunModelAttributes attributes = getGunModelAttributes(pack);
+        MeshLoaderObj loader;
+        auto textures = loadTexture(attributes.texturePath);
+        return loader.loadObj(attributes.modelPath, textures);
+    }
+
+    static Shader loadGunShader(GunPack pack) {
+        GunModelAttributes attributes = getGunModelAttributes(pack);
+        return Shader(attributes.vertexShaderPath.c_str(), attributes.fragmentShaderPath.c_str());
+    }
+
+    // Load Map Mesh and Shader
+    static Mesh loadMapMesh(MapPack pack) {
+        MapAttributes attributes = getMapModelAttributes(pack);
+        MeshLoaderObj loader;
+        if (!attributes.texturePath.empty()) {
+            auto textures = loadTexture(attributes.texturePath);
+            return loader.loadObj(attributes.terrainModel, textures);
+        }
+        return loader.loadObj(attributes.terrainModel);
+    }
+
     static Shader loadMapShader(MapPack pack) {
-        MapAttributes attributes = getMapAttributes(pack);
+        MapAttributes attributes = getMapModelAttributes(pack);
         return Shader(attributes.vertexShaderPath.c_str(), attributes.fragmentShaderPath.c_str());
     }
 };

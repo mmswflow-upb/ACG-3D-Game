@@ -1,5 +1,5 @@
 ﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(531,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (GameEngine.vcxproj).  This can lead to incorrect clean and rebuild behavior.
   main.cpp
-C:\Users\Mario Sakka\Documents\PrivateFilesFaculty\Year III\Semester 1\Advanced Computer Graphics\ACG-Project\Part II\ACG-3D-Game\Red Evil 3D\GameEngine\main.cpp(37,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\Mario Sakka\Documents\PrivateFilesFaculty\Year III\Semester 1\Advanced Computer Graphics\ACG-Project\Part II\ACG-3D-Game\Red Evil 3D\GameEngine\main.cpp(38,22): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Mario Sakka\Documents\PrivateFilesFaculty\Year III\Semester 1\Advanced Computer Graphics\ACG-Project\Part II\ACG-3D-Game\Red Evil 3D\GameEngine\main.cpp(38,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Mario Sakka\Documents\PrivateFilesFaculty\Year III\Semester 1\Advanced Computer Graphics\ACG-Project\Part II\ACG-3D-Game\Red Evil 3D\GameEngine\main.cpp(39,22): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
   GameEngine.vcxproj -> C:\Users\Mario Sakka\Documents\PrivateFilesFaculty\Year III\Semester 1\Advanced Computer Graphics\ACG-Project\Part II\ACG-3D-Game\Red Evil 3D\Debug\Red Evil 3D.exe

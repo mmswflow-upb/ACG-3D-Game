@@ -3,14 +3,13 @@
 #include <glm.hpp>
 
 enum class MapPack {
-    Ice,
+    Ver1,
     Volcano,
     Rocky,
     Plain
 };
 
 struct MapAttributes {
-    std::string name;
     std::string terrainModel;
     glm::vec3 ambientColor;
     std::string vertexShaderPath;
@@ -18,29 +17,29 @@ struct MapAttributes {
     std::string texturePath;
 };
 
-inline MapAttributes getMapAttributes(MapPack pack) {
+inline MapAttributes getMapModelAttributes(MapPack pack) {
     switch (pack) {
-    case MapPack::Ice:
-        return { "Ice Map", "../Models/Map/map_ver2.obj",
+    case MapPack::Ver1:
+        return {  "Resources/Models/Map/map.obj",
                  glm::vec3(0.5f, 0.7f, 1.0f),
-                 "../../Shaders/Maps Shaders/map_vertex_shader.glsl", "../../Shaders/Maps Shaders/map_fragment_shader.glsl" , "../Models/Map/map_ver2.bmp"};
+                 "Shaders/Maps Shaders/map_normal_vertex_shader.glsl", "Shaders/Maps Shaders/map_normal_fragment_shader.glsl" , "Resources/Models/Map/map_ver2.bmp"};
 
     case MapPack::Volcano:
-        return { "Volcano Map", "", // Placeholder paths
+        return {  "", // Placeholder paths
                  glm::vec3(0.9f, 0.2f, 0.2f),
                  "", "", ""};
 
     case MapPack::Rocky:
-        return { "Rocky Map", "", // Placeholder paths
+        return {  "", // Placeholder paths
                  glm::vec3(0.6f, 0.6f, 0.6f),
                  "", "" , ""};
 
     case MapPack::Plain:
-        return { "Plain Map", "", // Placeholder paths
+        return {  "", // Placeholder paths
                  glm::vec3(0.3f, 0.8f, 0.3f),
                  "", "" , ""};
 
     default:
-        return { "Unknown", "", glm::vec3(1.0f, 1.0f, 1.0f), "", "", ""};
+        return {  "", glm::vec3(1.0f, 1.0f, 1.0f), "", "", ""};
     }
 }

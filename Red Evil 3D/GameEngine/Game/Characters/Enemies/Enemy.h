@@ -1,66 +1,53 @@
 #pragma once
-#include <string>
+#include "../../Model Loading/mesh.h"
+#include "../../Shaders/shader.h"
+#include "../../Resources/Model Packs/CharacterPacks.h"
+#include <glm.hpp>
+#include <gtc/matrix_transform.hpp>
 #include <vector>
-#include "../../../Model Loading/texture.h"
-#include "../../../Model Loading/meshLoaderObj.h"
-#include "../../../Model Loading/mesh.h"
-#include "../../../Shaders/shader.h"
-#include "../../../Camera/camera.h"
-#include "../../../Graphics/window.h"
 
 class Enemy {
 private:
-    Mesh mesh;           // The 3D model mesh
-    Shader shader;       // Shader used for rendering
-    glm::vec3 position;  // Position of the enemy
-    float speed;         // Movement speed
-
-    // Private load function that supports textures or no textures
-    void load(const std::string& modelPath, const std::vector<Texture>& textures = {}) {
-        MeshLoaderObj loader;
-
-        // Use the appropriate overload of loadObj()
-        if (textures.empty()) {
-            mesh = loader.loadObj(modelPath); // No textures provided
-        }
-        else {
-            mesh = loader.loadObj(modelPath, textures); // Textures provided
-        }
-    }
+    Mesh mesh;
+    Shader shader;
+    glm::vec3 position;
+    float health;
+    float speed;
+    std::vector<ProjectileType> vulnerableTo;
 
 public:
-    // Constructor with textures
-    Enemy(const std::string& modelPath, const std::vector<Texture>& textures,
-        const std::string& vertexShaderPath, const std::string& fragmentShaderPath)
-        : shader(vertexShaderPath.c_str(), fragmentShaderPath.c_str()), // Convert to const char*
-        position(0.0f), speed(10.0f) {
-        load(modelPath, textures);
+    Enemy(const Mesh& loadedMesh, const Shader& loadedShader, CharacterPack pack)
+        : mesh(loadedMesh), shader(loadedShader) {
+        float health, speed;
+        std::vector<ProjectileType> vulnerabilities;
+        getCharacterGameAttributes(pack, health, speed, vulnerabilities);
+
+        this->health = health;
+        this->speed = speed;
+        this->vulnerableTo = vulnerabilities;
+        position = glm::vec3(0.0f);
     }
 
-    // Constructor without textures
-    Enemy(const std::string& modelPath,
-        const std::string& vertexShaderPath, const std::string& fragmentShaderPath)
-        : shader(vertexShaderPath.c_str(), fragmentShaderPath.c_str()), // Convert to const char*
-        position(0.0f), speed(10.0f) {
-        load(modelPath);
+    void move(float deltaTime, const glm::vec3& direction) {
+        glm::vec3 normalizedDirection = glm::normalize(direction);
+        position += normalizedDirection * speed * deltaTime;
     }
 
-    // Update enemy position
-    void update(float deltaTime) {
-        position.x += speed * deltaTime; // Example movement logic
-    }
-   
-    void render(const Camera& camera, const Window& window) {
+    void render(const glm::mat4& projectionMatrix, const glm::mat4& viewMatrix) {
         shader.use();
-
-        glm::mat4 projectionMatrix = glm::perspective(90.0f, window.getWidth() * 1.0f / window.getHeight(), 0.1f, 1000.0f);
-        glm::mat4 viewMatrix = glm::lookAt(camera.getCameraPosition(), camera.getCameraPosition() + camera.getCameraViewDirection(), camera.getCameraUp());
         glm::mat4 modelMatrix = glm::translate(glm::mat4(1.0f), position);
-
         glm::mat4 MVP = projectionMatrix * viewMatrix * modelMatrix;
         glUniformMatrix4fv(glGetUniformLocation(shader.getId(), "MVP"), 1, GL_FALSE, &MVP[0][0]);
-
         mesh.draw(shader);
     }
 
+    const glm::vec3& getPosition() const { return position; }
+    void setPosition(const glm::vec3& pos) { position = pos; }
+
+    float getHealth() const { return health; }
+    void setHealth(float value) { health = value; }
+
+    bool isVulnerableTo(ProjectileType projectile) const {
+        return std::find(vulnerableTo.begin(), vulnerableTo.end(), projectile) != vulnerableTo.end();
+    }
 };

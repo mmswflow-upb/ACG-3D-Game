@@ -1,10 +1,7 @@
-#include "Graphics\window.h"
 #include "Camera\camera.h"
-#include "Shaders\shader.h"
-#include "Model Loading\mesh.h"
-#include "Model Loading\texture.h"
-#include "Model Loading\meshLoaderObj.h"
 #include "Resources/GameLoader.h" // Include the GameLoader header
+#include "Game/Maps/Map.h"
+#include "Game/Characters/Main Character/Main_Char.h"
 
 void processKeyboardInput(bool paused);
 
@@ -23,8 +20,22 @@ int main()
 	glEnable(GL_DEPTH_TEST);
 
 	// Load the sun using GameLoader
-	Mesh sun = GameLoader::loadCelestialMesh(CelestialPack::Sun);
+	Mesh sunMesh = GameLoader::loadCelestialMesh(CelestialPack::Sun);
 	Shader sunShader = GameLoader::loadCelestialShader(CelestialPack::Sun);
+
+	//Load the map using GameLoader
+	Mesh mapMesh = GameLoader::loadMapMesh(MapPack::Ver1);
+	Shader mapShader = GameLoader::loadMapShader(MapPack::Ver1);
+
+	Mesh mcMesh = GameLoader::loadCharacterMesh(CharacterPack::Main);
+	Shader mcShader = GameLoader::loadCharacterShader(CharacterPack::Main);
+
+	Map map(mapMesh, mapShader, MapPack::Ver1);
+
+	Main_Char mc(mcMesh, mcShader, CharacterPack::Main);
+	
+
+	camera.setCameraPosition(glm::vec3(0.0f,10.0f,0.0f));
 
 	// Check if we close the window or press the escape button
 	while ( 
@@ -57,9 +68,28 @@ int main()
 		glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
 
 		// Render the sun
-		sun.draw(sunShader);
+		sunMesh.draw(sunShader);
 
 		//// End code for the light ////
+
+		mapShader.use();
+
+		
+
+		glm::mat4 MapModelMatrix = glm::mat4(1.0);
+		MapModelMatrix = glm::translate(MapModelMatrix, glm::vec3(0.0f, 0.0f, 0.0f));
+		glm::mat4 MapMVP = ProjectionMatrix * ViewMatrix * MapModelMatrix;
+
+		glUniformMatrix4fv(glGetUniformLocation(mapShader.getId(), "MVP"), 1, GL_FALSE, &MapMVP[0][0]);
+		glUniformMatrix4fv(glGetUniformLocation(mapShader.getId(), "Model"), 1, GL_FALSE, &MapModelMatrix[0][0]);
+		glUniform3f(glGetUniformLocation(mapShader.getId(), "lightColor"), lightColor.x, lightColor.y, lightColor.z);
+		glUniform3f(glGetUniformLocation(mapShader.getId(), "lightPos"), lightPos.x, lightPos.y, lightPos.z);
+		glUniform3f(glGetUniformLocation(mapShader.getId(), "viewPos"), camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z);
+
+		
+	
+
+		mapMesh.draw(mapShader);
 
 		// Render UI last
 		window.renderGUI();
