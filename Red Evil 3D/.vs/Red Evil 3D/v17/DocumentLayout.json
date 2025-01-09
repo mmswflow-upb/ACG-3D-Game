@@ -3,20 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\Mario Sakka\\Documents\\PrivateFilesFaculty\\Year III\\Semester 1\\Advanced Computer Graphics\\ACG-Project\\Part II\\ACG-3D-Game\\Red Evil 3D\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{7DB4A041-6210-429F-8FF3-63462ADD6A69}|GameEngine\\GameEngine.vcxproj|C:\\Users\\Mario Sakka\\Documents\\PrivateFilesFaculty\\Year III\\Semester 1\\Advanced Computer Graphics\\ACG-Project\\Part II\\ACG-3D-Game\\Red Evil 3D\\GameEngine\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{7DB4A041-6210-429F-8FF3-63462ADD6A69}|GameEngine\\GameEngine.vcxproj|solutionrelative:GameEngine\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7DB4A041-6210-429F-8FF3-63462ADD6A69}|GameEngine\\GameEngine.vcxproj|C:\\Users\\Mario Sakka\\Documents\\PrivateFilesFaculty\\Year III\\Semester 1\\Advanced Computer Graphics\\ACG-Project\\Part II\\ACG-3D-Game\\Red Evil 3D\\GameEngine\\Game\\Characters\\Main Character\\Main_Char.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{7DB4A041-6210-429F-8FF3-63462ADD6A69}|GameEngine\\GameEngine.vcxproj|solutionrelative:GameEngine\\Game\\Characters\\Main Character\\Main_Char.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7DB4A041-6210-429F-8FF3-63462ADD6A69}|GameEngine\\GameEngine.vcxproj|C:\\Users\\Mario Sakka\\Documents\\PrivateFilesFaculty\\Year III\\Semester 1\\Advanced Computer Graphics\\ACG-Project\\Part II\\ACG-3D-Game\\Red Evil 3D\\GameEngine\\Game\\Maps\\Map.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{7DB4A041-6210-429F-8FF3-63462ADD6A69}|GameEngine\\GameEngine.vcxproj|solutionrelative:GameEngine\\Game\\Maps\\Map.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{7DB4A041-6210-429F-8FF3-63462ADD6A69}|GameEngine\\GameEngine.vcxproj|C:\\Users\\Mario Sakka\\Documents\\PrivateFilesFaculty\\Year III\\Semester 1\\Advanced Computer Graphics\\ACG-Project\\Part II\\ACG-3D-Game\\Red Evil 3D\\GameEngine\\Game\\Celestials\\Celestial.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{7DB4A041-6210-429F-8FF3-63462ADD6A69}|GameEngine\\GameEngine.vcxproj|solutionrelative:GameEngine\\Game\\Celestials\\Celestial.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7DB4A041-6210-429F-8FF3-63462ADD6A69}|GameEngine\\GameEngine.vcxproj|C:\\Users\\Mario Sakka\\Documents\\PrivateFilesFaculty\\Year III\\Semester 1\\Advanced Computer Graphics\\ACG-Project\\Part II\\ACG-3D-Game\\Red Evil 3D\\GameEngine\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{7DB4A041-6210-429F-8FF3-63462ADD6A69}|GameEngine\\GameEngine.vcxproj|solutionrelative:GameEngine\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,7 +18,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -34,52 +26,28 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "Celestial.h",
               "DocumentMoniker": "C:\\Users\\Mario Sakka\\Documents\\PrivateFilesFaculty\\Year III\\Semester 1\\Advanced Computer Graphics\\ACG-Project\\Part II\\ACG-3D-Game\\Red Evil 3D\\GameEngine\\Game\\Celestials\\Celestial.h",
               "RelativeDocumentMoniker": "GameEngine\\Game\\Celestials\\Celestial.h",
               "ToolTip": "C:\\Users\\Mario Sakka\\Documents\\PrivateFilesFaculty\\Year III\\Semester 1\\Advanced Computer Graphics\\ACG-Project\\Part II\\ACG-3D-Game\\Red Evil 3D\\GameEngine\\Game\\Celestials\\Celestial.h",
               "RelativeToolTip": "GameEngine\\Game\\Celestials\\Celestial.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAFAAAAAAAAAAAAAwwGIAAABOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-01-08T04:46:56.299Z"
+              "WhenOpened": "2025-01-09T00:47:57.885Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "main.cpp",
               "DocumentMoniker": "C:\\Users\\Mario Sakka\\Documents\\PrivateFilesFaculty\\Year III\\Semester 1\\Advanced Computer Graphics\\ACG-Project\\Part II\\ACG-3D-Game\\Red Evil 3D\\GameEngine\\main.cpp",
               "RelativeDocumentMoniker": "GameEngine\\main.cpp",
               "ToolTip": "C:\\Users\\Mario Sakka\\Documents\\PrivateFilesFaculty\\Year III\\Semester 1\\Advanced Computer Graphics\\ACG-Project\\Part II\\ACG-3D-Game\\Red Evil 3D\\GameEngine\\main.cpp",
               "RelativeToolTip": "GameEngine\\main.cpp",
-              "ViewState": "AgIAAHIAAAAAAAAAAAAAAIcAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAACcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-01-08T04:14:19.949Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Map.h",
-              "DocumentMoniker": "C:\\Users\\Mario Sakka\\Documents\\PrivateFilesFaculty\\Year III\\Semester 1\\Advanced Computer Graphics\\ACG-Project\\Part II\\ACG-3D-Game\\Red Evil 3D\\GameEngine\\Game\\Maps\\Map.h",
-              "RelativeDocumentMoniker": "GameEngine\\Game\\Maps\\Map.h",
-              "ToolTip": "C:\\Users\\Mario Sakka\\Documents\\PrivateFilesFaculty\\Year III\\Semester 1\\Advanced Computer Graphics\\ACG-Project\\Part II\\ACG-3D-Game\\Red Evil 3D\\GameEngine\\Game\\Maps\\Map.h",
-              "RelativeToolTip": "GameEngine\\Game\\Maps\\Map.h",
-              "ViewState": "AgIAAJsAAAAAAAAAAAAIwEMAAAADAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-01-08T02:36:19.701Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Main_Char.h",
-              "DocumentMoniker": "C:\\Users\\Mario Sakka\\Documents\\PrivateFilesFaculty\\Year III\\Semester 1\\Advanced Computer Graphics\\ACG-Project\\Part II\\ACG-3D-Game\\Red Evil 3D\\GameEngine\\Game\\Characters\\Main Character\\Main_Char.h",
-              "RelativeDocumentMoniker": "GameEngine\\Game\\Characters\\Main Character\\Main_Char.h",
-              "ToolTip": "C:\\Users\\Mario Sakka\\Documents\\PrivateFilesFaculty\\Year III\\Semester 1\\Advanced Computer Graphics\\ACG-Project\\Part II\\ACG-3D-Game\\Red Evil 3D\\GameEngine\\Game\\Characters\\Main Character\\Main_Char.h",
-              "RelativeToolTip": "GameEngine\\Game\\Characters\\Main Character\\Main_Char.h",
-              "ViewState": "AgIAABUAAAAAAAAAAAAAAC4AAABEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-01-08T02:16:36.178Z"
+              "WhenOpened": "2025-01-08T04:14:19.949Z"
             }
           ]
         }

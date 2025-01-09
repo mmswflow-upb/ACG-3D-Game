@@ -2,6 +2,7 @@
 #include "../../../Model Loading/mesh.h"
 #include "../../../Shaders/shader.h"
 #include "../../../Resources/Model Packs/CharacterPacks.h"
+#include "../../../Camera/camera.h"
 #include <glm.hpp>
 #include <gtc/matrix_transform.hpp>
 #include <vector>

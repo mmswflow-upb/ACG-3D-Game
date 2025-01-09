@@ -1,7 +1,6 @@
 #include "window.h"
 
 
-
 Window::Window(char* name, int width, int height)
 {
 	this -> name = name;
@@ -219,14 +218,14 @@ bool Window::isSpectating() {
 	return spectateMode;
 }
 
-void Window::renderGUI() {
+void Window::renderGUI(Camera& camera, Main_Char& mc) {
 
 
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
 
-	menu.render(paused, spectateMode, animatingLiquids,window);
+	menu.render(paused, spectateMode, animatingLiquids,window, camera, mc);
 	//instructions.render();
 	
 	ImGui::Render();

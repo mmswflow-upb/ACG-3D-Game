@@ -149,7 +149,7 @@
     <ClInclude Include="Game\Maps\Objects\Animatable.h" />
     <ClInclude Include="Game\Tools\Drop.h" />
     <ClInclude Include="Game\Projectiles\Projectile.h" />
-    <ClInclude Include="Game\Tasks\Tasks.h" />
+    <ClInclude Include="Game\Tasks\Task.h" />
     <ClInclude Include="Graphics\GUI\HealthBar.h" />
     <ClInclude Include="Graphics\imgui\imgui_impl_glfw.h" />
     <ClInclude Include="Graphics\imgui\imgui_impl_opengl3.h" />
@@ -178,6 +178,8 @@
     <ClInclude Include="Model Loading\texture.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Shaders\Celestial Shaders\moon_fragment_shader.glsl" />
+    <None Include="Shaders\Celestial Shaders\moon_vertex_shader.glsl" />
     <None Include="Shaders\Characters Shaders\mc_normal_fragment_shader.glsl" />
     <None Include="Shaders\Characters Shaders\mc_normal_vertex_shader.glsl" />
     <None Include="Shaders\fragment_shader.glsl" />

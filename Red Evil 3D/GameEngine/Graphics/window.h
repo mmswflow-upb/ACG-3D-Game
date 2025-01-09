@@ -7,6 +7,7 @@
 #include "../Graphics/imgui/imgui.h"
 #include "imgui/imgui_impl_glfw.h"
 #include "imgui/imgui_impl_opengl3.h"
+#include "../Game/Characters/Main Character/Main_Char.h"
 #define MAX_KEYBOARD 512
 #define MAX_MOUSE 8
 
@@ -57,5 +58,5 @@ class Window
 		bool isAnimatingLiquids();
 
 		void handleEscapeToMenuInput();
-		void renderGUI();
+		void renderGUI(Camera& camera, Main_Char& mc);
 };

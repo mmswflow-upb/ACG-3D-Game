@@ -2,7 +2,8 @@
 #include "../imgui/imgui.h"
 #include <glfw3.h>
 #include <glew.h>
-
+#include "../../Camera/camera.h"
+#include "../../Game/Characters/Main Character/Main_Char.h"
 class MenuGUI {
 private:
     bool isVisible; // Tracks whether the menu is currently visible
@@ -21,7 +22,7 @@ public:
         return isVisible;
     }
 
-    void MenuGUI::render(bool& paused, bool& spectating, bool& animatingLiquids,GLFWwindow* window) {
+    void MenuGUI::render(bool& paused, bool& spectating, bool& animatingLiquids,GLFWwindow* window, Camera& camera, Main_Char& mc) {
         if (!isVisible) return;
 
         // Get the window size
@@ -63,6 +64,13 @@ public:
         ImGui::SetCursorPosX((menuSize.x - buttonWidth) / 2.0f);
         if (ImGui::Checkbox("Spectate Mode", &spectateMode)) {
             spectating = !spectating;
+            if (!spectating) {
+                // Set camera position to character's position with an offset
+                glm::vec3 characterPos = mc.getPosition();
+                glm::vec3 newCameraPos = characterPos + glm::vec3(0.0f, 1.0f, 0.0f); // Adjust the Y offset as needed
+                camera.setCameraPosition(newCameraPos);
+                
+            }
         }
 
         // Add some spacing

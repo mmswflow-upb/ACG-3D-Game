@@ -143,7 +143,7 @@
     <ClInclude Include="Resources\Model Packs\DropPacks.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Tasks\Tasks.h">
+    <ClInclude Include="Game\Tasks\Task.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Resources\Model Packs\MapPacks.h">
@@ -179,5 +179,7 @@
     <None Include="Shaders\Maps Shaders\map_normal_fragment_shader.glsl" />
     <None Include="Shaders\Characters Shaders\mc_normal_fragment_shader.glsl" />
     <None Include="Shaders\Characters Shaders\mc_normal_vertex_shader.glsl" />
+    <None Include="Shaders\Celestial Shaders\moon_fragment_shader.glsl" />
+    <None Include="Shaders\Celestial Shaders\moon_vertex_shader.glsl" />
   </ItemGroup>
 </Project>

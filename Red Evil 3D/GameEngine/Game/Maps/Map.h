@@ -18,12 +18,12 @@
 class Map {
 private:
     std::vector<Enemy> enemies;
-    Main_Char mainCharacter;  // Single main character
+    Main_Char& mainCharacter;  // Single main character
     std::vector<Friend> friends;
     std::vector<Drop> drops;
     std::vector<Animatable> animatables;
     std::vector<Projectile> projectiles;
-    std::vector<Celestial> celestials;
+    Celestial& moon, &sun;
     // Map projectiles by their type
     std::map<ProjectileType, std::vector<Projectile>> projectilesByType;
 
@@ -33,17 +33,17 @@ private:
     Shader shader;
 
 public:
-    Map(const Mesh& loadedMesh, const Shader& loadedShader, MapPack pack, const Main_Char& mainChar)
-        : terrainMesh(loadedMesh), shader(loadedShader), mainCharacter(mainChar) {
+    Map(const Mesh& loadedMesh, const Shader& loadedShader, MapPack pack,  Main_Char& mainChar, Celestial& sun, Celestial& moon)
+        : terrainMesh(loadedMesh), shader(loadedShader), mainCharacter(mainChar), moon(moon), sun(sun) {
         position = glm::vec3(0.0f, 0.0f, 0.0f);
     }
 
     // Add methods
-    void addEnemy(const Enemy& enemy) { enemies.push_back(enemy); }
-    void addFriend(const Friend& friendChar) { friends.push_back(friendChar); }
-    void addDrop(const Drop& drop) { drops.push_back(drop); }
-    void addAnimatable(const Animatable& animatable) { animatables.push_back(animatable); }
-    void addCelestial(const Celestial& celestial) { celestials.push_back(celestial); }
+    void addEnemy(Enemy& enemy) { enemies.push_back(enemy); }
+    void addFriend( Friend& friendChar) { friends.push_back(friendChar); }
+    void addDrop( Drop& drop) { drops.push_back(drop); }
+    void addAnimatable(Animatable& animatable) { animatables.push_back(animatable); }
+   
     void addProjectile(Projectile& projectile) {
         projectilesByType[projectile.getType()].push_back(projectile);
     }
@@ -83,9 +83,8 @@ public:
 
     // Move celestials
     void moveCelestials(float deltaTime) {
-        for (auto& celestial : celestials) {
-            celestial.update(deltaTime);
-        }
+        sun.update(deltaTime);
+        moon.update(deltaTime, sun.getAngle());
     }
 
     // Check bounds or obstacles collisions for the main character
@@ -192,9 +191,8 @@ public:
             }
         }
         //Render celestials (sun and moon)
-        for (auto& celestial : celestials) {
-            celestial.render(projectionMatrix, viewMatrix);
-        }
+        moon.render(projectionMatrix, viewMatrix);
+        sun.render(projectionMatrix, viewMatrix);
     }
 
     // Setters

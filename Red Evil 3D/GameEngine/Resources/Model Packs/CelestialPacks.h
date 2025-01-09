@@ -28,7 +28,7 @@ inline CelestialModelAttributes getCelestialModelAttributes(CelestialPack pack) 
         };
     case CelestialPack::Moon:
         return {
-            "Resources/Models/Celestials/moon.obj",
+            "Resources/Models/Celestials/sun.obj",
             "Shaders/Celestial Shaders/moon_vertex_shader.glsl",
             "Shaders/Celestial Shaders/moon_fragment_shader.glsl",
             "" // No texture for the moon
@@ -49,18 +49,18 @@ inline void getCelestialGameAttributes(
 ) {
     switch (pack) {
     case CelestialPack::Sun:
-        startingPosition = glm::vec3(0.0f, 100.0f, -200.0f);
+        startingPosition = glm::vec3(-200.0f, 0.0f, 0.0f);
         color = glm::vec3(1.0f, 0.8f, 0.2f); // Bright yellow
-        scale = 10.0f;                      // Large scale
-        orbitRadius = 300.0f;               // Larger orbit radius
-        orbitSpeed = 0.5f;                  // Slower orbit speed
+        scale = 1.5f;                      // Small Scale
+        orbitRadius = 200.0f;               // Larger orbit radius
+        orbitSpeed = 8.0f;                  // Slower orbit speed
         break;
     case CelestialPack::Moon:
-        startingPosition = glm::vec3(-200.0f, 50.0f, 300.0f);
-        color = glm::vec3(0.9f, 0.9f, 1.0f); // Soft white
-        scale = 5.0f;                       // Medium scale
-        orbitRadius = 150.0f;               // Smaller orbit radius
-        orbitSpeed = 1.5f;                  // Faster orbit speed
+        startingPosition = glm::vec3(200.0f, 0.0f, 0.0f);
+        color = glm::vec3(0.5f, 0.5f, 0.5f); // Soft Gray
+        scale = 1.5f;                       // Large Scale
+        orbitRadius = 200.0f;               // Smaller orbit radius
+        orbitSpeed = 8.0f;                  // Faster orbit speed
         break;
     default:
         startingPosition = glm::vec3(0.0f);

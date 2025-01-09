@@ -1,10 +1,8 @@
 #pragma once
-
 #include <glm.hpp>
 #include <gtx\transform.hpp>
 #include <gtc\matrix_transform.hpp>
 #include <gtc\type_ptr.hpp>
-#include "..\Graphics\window.h"
 
 const float camera_sensitivity = 0.1f;
 

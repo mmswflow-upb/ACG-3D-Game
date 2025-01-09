@@ -3,6 +3,8 @@
 #include "Game/Maps/Map.h"
 #include "Game/Characters/Main Character/Main_Char.h"
 #include "Game/Celestials/Celestial.h"
+#include "Graphics/window.h"
+#include "Game/Tasks/Task.h"
 
 void processKeyboardInput(bool paused, bool spectateMode, Main_Char& mc);
 
@@ -12,8 +14,6 @@ float lastFrame = 0.0f;
 Window window("Red Evil: The Laylasaurus Quest", 800, 800);
 Camera camera;
 
-glm::vec3 lightColor(1.0f, 0.8f, 0.2f);
-glm::vec3 lightPos(0.0f, 100.0f, -200.0f);
 
 int main()
 {
@@ -24,6 +24,10 @@ int main()
 	Mesh sunMesh = GameLoader::loadCelestialMesh(CelestialPack::Sun);
 	Shader sunShader = GameLoader::loadCelestialShader(CelestialPack::Sun);
 
+
+	Mesh moonMesh = sunMesh;
+	Shader moonShader = GameLoader::loadCelestialShader(CelestialPack::Moon);
+
 	//Load the map using GameLoader
 	Mesh mapMesh = GameLoader::loadMapMesh(MapPack::Ver1);
 	Shader mapShader = GameLoader::loadMapShader(MapPack::Ver1);
@@ -32,13 +36,16 @@ int main()
 	Shader mcShader = GameLoader::loadCharacterShader(CharacterPack::Main);
 
 	Celestial sun(sunMesh, sunShader, CelestialPack::Sun);
+	Celestial moon(moonMesh, moonShader, CelestialPack::Moon);
 
 	Main_Char mc(mcMesh, mcShader, CharacterPack::Main);
 
-
-	Map map(mapMesh, mapShader, MapPack::Ver1, mc);
-	map.addCelestial(sun);
 	
+
+
+	Map map(mapMesh, mapShader, MapPack::Ver1, mc, sun, moon);
+	
+
 	camera.setCameraPosition(glm::vec3(0.0f,10.0f,0.0f));
 
 	// Check if we close the window or press the escape button
@@ -65,7 +72,7 @@ int main()
 		processKeyboardInput(paused, spectateMode, mc);
 
 
-		glm::mat4 ProjectionMatrix = glm::perspective(90.0f, window.getWidth() * 1.0f / window.getHeight(), 0.1f, 10000.0f);
+		glm::mat4 ProjectionMatrix = glm::perspective(90.0f, window.getWidth() * 1.0f / window.getHeight(), 1.0f, 10000.0f);
 		glm::mat4 ViewMatrix = glm::lookAt(camera.getCameraPosition(), camera.getCameraPosition() + camera.getCameraViewDirection(), camera.getCameraUp());
 
 		//Update movement of projectiles
@@ -84,14 +91,18 @@ int main()
 
 
 		//Render the scene 
-		//glm::vec3 lightPos, lightColor;
-		//Celestial::determineTimeAndSetLight(sun, moon, lightColor, lightPos);
+		glm::vec3 lightPos, lightColor;
+		glm::vec4 skyColor;
+
+		Celestial::determineTimeAndSetLight(sun, moon, lightColor, lightPos, skyColor);
+		glClearColor(skyColor.x, skyColor.y, skyColor.z, skyColor.w);
+
 		map.render(ProjectionMatrix, ViewMatrix, lightColor, lightPos, camera, spectateMode, animateLiquids, time);
 		
 
 
 		// Render UI last
-		window.renderGUI();
+		window.renderGUI(camera, mc);
 	}
 
 	return 0;
@@ -125,11 +136,11 @@ void processKeyboardInput(bool paused, bool spectateMode, Main_Char& mc)
 			float rotationAngle = glm::atan(cameraForward.x, cameraForward.z);
 
 			// Convert the angle to degrees if necessary (OpenGL uses degrees in some cases)
-
+			rotationAngle = glm::degrees(rotationAngle);
 			// Set the rotation of the main character
 			mc.setRotation(rotationAngle);
 			glm::vec3 newPos = camera.getCameraPosition();
-			newPos.y -= 1.0f;
+			newPos.y -= 0.8f;
 			mc.setPosition(newPos);
 
 		}
