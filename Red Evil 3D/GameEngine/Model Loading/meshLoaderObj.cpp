@@ -31,7 +31,6 @@ Mesh MeshLoaderObj::loadObj(const std::string &filename)
 	//Parsing obj file
 	while (std::getline(file, line))
 	{
-		std::cout << "Processing line " << line << ": " << line << std::endl;
 		_stringTokenize(line, tokens);
 
 		if (tokens.size() == 0)
