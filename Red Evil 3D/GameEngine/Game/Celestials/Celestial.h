@@ -32,7 +32,7 @@ public:
     const glm::vec3& getPosition() const { return currentPosition; }
     
     
-    void update(float deltaTime, float sunAngle = 0.0f) {
+    void move(float deltaTime, float sunAngle = 0.0f) {
         constexpr float TWO_PI_DEG = 360.0f; // Full rotation in degrees
 
         if (pack == CelestialPack::Moon) {
@@ -112,12 +112,16 @@ public:
 
     void render(const glm::mat4& projectionMatrix, const glm::mat4& viewMatrix) {
         if (!visible) return;
-
-        glm::mat4 modelMatrix = glm::scale(glm::mat4(1.0), glm::vec3(scale));
-        modelMatrix =  glm::translate(modelMatrix, currentPosition);
-        glm::mat4 MVP = projectionMatrix * viewMatrix * modelMatrix;
         shader.use();
+        glm::mat4 modelMatrix = glm::scale(glm::mat4(1.0), glm::vec3(scale));
+        modelMatrix = glm::translate(modelMatrix, currentPosition);
+        glm::mat4 MVP = projectionMatrix * viewMatrix * modelMatrix;
+
+        float angleRadians = glm::radians(currentAngle) ;
         glUniformMatrix4fv(glGetUniformLocation(shader.getId(), "MVP"), 1, GL_FALSE, &MVP[0][0]);
+        glUniform1fv(glGetUniformLocation(shader.getId(), "angle"), 1, &angleRadians );
+
         mesh.draw(shader);
+
     }
 };

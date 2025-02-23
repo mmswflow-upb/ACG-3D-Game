@@ -3,15 +3,17 @@
 
 /// Enum class for Projectile Types
 enum class ProjectileType {
+    None,       // Represents no projectile
     Bullet,
     Fireball,
-    IceShard,
+    Iceball,
+	LaylasaurusFireball
 };
 
 /// Struct for Projectile Model Attributes
 struct ProjectileModelAttributes {
-    std::string texturePath;
     std::string modelPath;
+    std::string texturePath;
     std::string vertexShaderPath;
     std::string fragmentShaderPath;
 };
@@ -20,6 +22,9 @@ struct ProjectileModelAttributes {
 struct ProjectileGameAttributes {
     float damage;  // Damage dealt by the projectile
     float speed;   // Speed of the projectile
+    float scale; // Scale of the projectile
+    float maxDistance; //Max distance covered by projectile 
+    std::string name;
 };
 
 /// Function to get Projectile Model Attributes
@@ -27,48 +32,75 @@ inline ProjectileModelAttributes getProjectileModelAttributes(ProjectileType typ
     switch (type) {
     case ProjectileType::Bullet:
         return {
-            "../Textures/Projectiles/bullet.png",
-            "../Models/Tools/cube.obj",
-            "../../Shaders/Projectiles Shaders/projectile_vertex.glsl",
-            "../../Shaders/Projectiles Shaders/projectile_fragment.glsl"
+           "Resources/Models/Projectiles/Bullet/bullet.obj",
+            "",
+            "Shaders/Projectiles Shaders/Bullet Shaders/bullet_vertex_shader.glsl",
+            "Shaders/Projectiles Shaders/Bullet Shaders/bullet_fragment_shader.glsl"
         };
     case ProjectileType::Fireball:
         return {
-            "../Textures/Projectiles/fireball.png",
-            "../Models/Projectiles/fireball.obj",
-            "../../Shaders/Projectiles Shaders/fireball_vertex.glsl",
-            "../../Shaders/Projectiles Shaders/fireball_fragment.glsl"
+            "Resources/Models/Projectiles/Fireball/fireball.obj",
+            "",
+            "Shaders/Projectiles Shaders/Fireball Shaders/fireball_vertex_shader.glsl",
+            "Shaders/Projectiles Shaders/Fireball Shaders/fireball_fragment_shader.glsl"
         };
-    case ProjectileType::IceShard:
+    case ProjectileType::Iceball:
         return {
-            "../Textures/Projectiles/iceshard.png",
-            "../Models/Projectiles/iceshard.obj",
-            "../../Shaders/Projectiles Shaders/iceshard_vertex.glsl",
-            "../../Shaders/Projectiles Shaders/iceshard_fragment.glsl"
+            "Resources/Models/Projectiles/Iceball/iceball.obj",
+            "",
+            "Shaders/Projectiles Shaders/Iceball Shaders/iceball_vertex_shader.glsl",
+            "Shaders/Projectiles Shaders/Iceball Shaders/iceball_fragment_shader.glsl"
         };
+    case ProjectileType::LaylasaurusFireball:
+        return {
+            "Resources/Models/Projectiles/Fireball/fireball.obj",
+            "",
+            "Shaders/Projectiles Shaders/Laylasaurus Fireball Shaders/laylasaurus_fireball_vertex_shader.glsl",
+            "Shaders/Projectiles Shaders/Laylasaurus Fireball Shaders/laylasaurus_fireball_fragment_shader.glsl"
+        };
+    case ProjectileType::None:
     default:
-        return { "", "", "", "" };
+        return { "", "", "", "" }; // Empty values for None or unrecognized types
     }
 }
 
 /// Function to get Projectile Game Attributes (modifies arguments by reference)
-inline void getProjectileGameAttributes(ProjectileType type, float& damage, float& speed) {
+inline void getProjectileGameAttributes(ProjectileType type, float& damage, float& speed, float& scale, float& maxDistance, std::string& name) {
     switch (type) {
     case ProjectileType::Bullet:
         damage = 25.0f;
-        speed = 50.0f;
+        speed = 10.0f;
+        scale = 2.0f;
+        maxDistance=50.0f;
+		name="Bullet";
         break;
     case ProjectileType::Fireball:
         damage = 50.0f;
-        speed = 30.0f;
+        speed = 15.0f;
+        scale = 2.5f;
+        maxDistance=60.0f;
+		"Fireball";
         break;
-    case ProjectileType::IceShard:
+    case ProjectileType::Iceball:
         damage = 40.0f;
-        speed = 35.0f;
+        speed = 10.0f;
+        scale = 0.05f;
+        maxDistance = 50.0f;
+		name= "Iceball";
         break;
+	case ProjectileType::LaylasaurusFireball:
+		damage = 40.0f;
+		speed = 10.0f;
+		scale = 0.05f;
+		maxDistance = 50.0f;
+        break;
+    case ProjectileType::None:
     default:
         damage = 0.0f;
-        speed = 0.0f;
+        speed = 0.0f; // No damage or speed for None type
+        scale = 2.0f;
+        maxDistance=50.0f;
+		name="";
         break;
     }
 }

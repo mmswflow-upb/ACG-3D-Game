@@ -1,22 +1,5 @@
 ﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(531,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (GameEngine.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  camera.cpp
-  imgui_impl_glfw.cpp
-C:\Users\Mario Sakka\Documents\PrivateFilesFaculty\Year III\Semester 1\Advanced Computer Graphics\ACG-Project\Part II\ACG-3D-Game\Red Evil 3D\GameEngine\Camera\camera.cpp(95,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\Mario Sakka\Documents\PrivateFilesFaculty\Year III\Semester 1\Advanced Computer Graphics\ACG-Project\Part II\ACG-3D-Game\Red Evil 3D\GameEngine\Camera\camera.cpp(96,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  imgui_impl_opengl3.cpp
-  imgui.cpp
-  imgui_draw.cpp
-  imgui_tables.cpp
-  imgui_widgets.cpp
-  window.cpp
-  main.cpp
-C:\Users\Mario Sakka\Documents\PrivateFilesFaculty\Year III\Semester 1\Advanced Computer Graphics\ACG-Project\Part II\ACG-3D-Game\Red Evil 3D\GameEngine\main.cpp(62,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\Mario Sakka\Documents\PrivateFilesFaculty\Year III\Semester 1\Advanced Computer Graphics\ACG-Project\Part II\ACG-3D-Game\Red Evil 3D\GameEngine\main.cpp(63,22): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  meshLoaderObj.cpp
-  mesh.cpp
-  shader.cpp
-  texture.cpp
-  Generating Code...
+  LINK : C:\Users\Mario Sakka\Documents\PrivateFilesFaculty\Year III\Semester 1\Advanced Computer Graphics\ACG-Project\Part II\ACG-3D-Game\Red Evil 3D\Debug\Red Evil 3D.exe not found or not built by the last incremental link; performing full link
 LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
 LINK : warning LNK4098: defaultlib 'LIBCMT' conflicts with use of other libs; use /NODEFAULTLIB:library
 glew32s.lib(glew.obj) : warning LNK4099: PDB '' was not found with 'glew32s.lib(glew.obj)' or at ''; linking object as if no debug info

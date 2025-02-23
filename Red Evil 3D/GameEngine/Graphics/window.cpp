@@ -1,234 +1,221 @@
 #include "window.h"
 
+Window::Window(
+    char* name,
+    int* width,
+    int* height,
+    bool* specMode,
+    bool* animat,
+    bool* paus,
+    std::pair<std::string, std::string>& taskTitleAndDescription,
+    std::map<std::string, std::string>& inventoryItemsAndAmounts,
+    std::pair<std::string, std::string>& heldItemNameAndAmount,
+    Main_Char* mc,
+    Friend* friendCharacter,
+    Camera* cam
+) : name(name),
+width(width),
+height(height),
+spectateMode(specMode),
+animating(animat),
+paused(paus),
+mc(mc),
+camera(cam),
+menu(paused, spectateMode,animat, cam, mc, width, height),
+healthbar(100.0f, mc, 100.0f, friendCharacter, width, height),
+taskGUI(taskTitleAndDescription, paused, width, height),
+toolGUI(heldItemNameAndAmount, paused, width, height),
+invGUI(inventoryItemsAndAmounts, width, height) {
 
-Window::Window(char* name, int width, int height)
-{
-	this -> name = name;
-	this -> width = width;
-	this -> height = height;
-	this->paused = false;
-	this->animatingLiquids = true;
-	this->spectateMode = false;
+    
+    lastMenuToggleTime = 0.0;
 
-	this->lastMenuToggleTime = 0.0;
-	init();
+    init();
 
-	for (int i = 0; i < MAX_KEYBOARD; i++)
-	{
-		this->keys[i] = false;
-	}
-
-	for (int i = 0; i < MAX_MOUSE; i++)
-	{
-		this->mouseButtons[i] = false;
-	}
+    // Initialize input states
+    for (int i = 0; i < MAX_KEYBOARD; i++) keys[i] = false;
+    for (int i = 0; i < MAX_MOUSE; i++) mouseButtons[i] = false;
 }
 
-Window::~Window()
-{
-	ImGui_ImplOpenGL3_Shutdown();
-	ImGui_ImplGlfw_Shutdown();
-	ImGui::DestroyContext();
-
-	glfwTerminate();
+Window::~Window() {
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui_ImplGlfw_Shutdown();
+    ImGui::DestroyContext();
+    glfwTerminate();
 }
 
-void Window::init()
-{
-	if (!glfwInit())
-	{
-		std::cout << "Error initializing glfw!" << std::endl;
-	}
-	else
-	{
-		std::cout << "Successfully initializing glfw!" << std::endl;
-	}
+void Window::init() {
+    if (!glfwInit()) {
+        std::cout << "Error initializing glfw!" << std::endl;
+    }
+    else {
+        std::cout << "Successfully initialized glfw!" << std::endl;
+    }
 
-	window = glfwCreateWindow(width, height, name, NULL, NULL);
+    window = glfwCreateWindow(*width, *height, name, NULL, NULL);
 
-	if (window == NULL)
-	{
-		std::cout << "Failed to create a GLFW window" << std::endl;
-		glfwTerminate();
-		return;
-	}
+    if (window == NULL) {
+        std::cout << "Failed to create a GLFW window" << std::endl;
+        glfwTerminate();
+        return;
+    }
 
-	glfwMakeContextCurrent(window);
-	glfwSwapInterval(1); // Enable vsync
+    glfwMakeContextCurrent(window);
+    glfwSwapInterval(1); // Enable vsync
 
-	//callbacks for user input
-	glfwSetWindowUserPointer(window, this);
-	glfwSetKeyCallback(window, key_callback);
-	glfwSetMouseButtonCallback(window, mouse_button_callback);
-	glfwSetCursorPosCallback(window, cursor_position_callback);
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    // Callbacks for user input
+    glfwSetWindowUserPointer(window, this);
+    glfwSetKeyCallback(window, key_callback);
+    glfwSetMouseButtonCallback(window, mouse_button_callback);
+    glfwSetCursorPosCallback(window, cursor_position_callback);
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
-	if (glewInit() != GLEW_OK)
-	{
-		std::cout << "Error initializing glew!" << std::endl;
-	}
-	else
-	{
-		std::cout << "Successfully initializing glew!" << std::endl;
-	}
+    if (glewInit() != GLEW_OK) {
+        std::cout << "Error initializing glew!" << std::endl;
+    }
+    else {
+        std::cout << "Successfully initialized glew!" << std::endl;
+    }
 
-	std::cout << "Open GL " << glGetString(GL_VERSION) << std::endl;
-	glEnable(GL_BLEND);
+    std::cout << "OpenGL " << glGetString(GL_VERSION) << std::endl;
+    glEnable(GL_BLEND);
 
+    // Setup Dear ImGui context
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    ImGuiIO& io = ImGui::GetIO();
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;
 
-	// Setup Dear ImGui context
-	IMGUI_CHECKVERSION();
-	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO(); (void)io;
-	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
-	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+    // Setup Dear ImGui style
+    ImGui::StyleColorsDark();
 
-	// Setup Dear ImGui style
-	ImGui::StyleColorsDark();
-	//ImGui::StyleColorsLight();
-
-	// Initialize ImGui backend for GLFW and OpenGL
-	ImGui_ImplGlfw_InitForOpenGL(window, true);
-	ImGui_ImplOpenGL3_Init("#version 330"); // GLSL version
+    // Initialize ImGui backend for GLFW and OpenGL
+    ImGui_ImplGlfw_InitForOpenGL(window, true);
+    ImGui_ImplOpenGL3_Init("#version 330");
 }
 
-void Window::update()
-{
-	glfwPollEvents();
-	glfwGetFramebufferSize(window, &width, &height); //updates the width and height variables after resize
-	glViewport(0, 0, width, height);
-	handleEscapeToMenuInput();
-	glfwSwapBuffers(window);
-	
+void Window::update() {
+    glfwPollEvents();
+    glfwGetFramebufferSize(window, width, height);
+    glViewport(0, 0, *width, *height);
+    handleUIKeyBinds();
+
+    if (*paused) {
+        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+    }
+    else {
+        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    }
+    glfwSwapBuffers(window);
 }
 
-void Window::clear()
-{
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+void Window::clear() {
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-GLFWwindow* Window::getWindow()
-{
-	return window;
+GLFWwindow* Window::getWindow() {
+    return window;
 }
 
- int Window::getWidth() const
-{
-	return width;
-}
-  
- int Window::getHeight() const
-{
-	return height;
+int Window::getWidth() const {
+    return *width;
 }
 
-void Window::setKey(int key, bool ok)
-{
-	this -> keys[key] = ok;
+int Window::getHeight() const {
+    return *height;
 }
 
-void Window::setMouseButton(int button, bool ok)
-{
-	this->mouseButtons[button] = ok;
+void Window::setKey(int key, bool ok) {
+    keys[key] = ok;
 }
 
-void Window::setMousePos(double xpos, double ypos)
-{
-	this->xpos = xpos;
-	this->ypos = ypos;
+void Window::setMouseButton(int button, bool ok) {
+    mouseButtons[button] = ok;
 }
 
-void Window::getMousePos(double &xpos, double &ypos)
-{
-	xpos = this->xpos;
-	ypos = this->ypos;
+void Window::setMousePos(double xpos, double ypos) {
+    this->xpos = xpos;
+    this->ypos = ypos;
 }
 
-//Handling key pressed
-bool Window::isPressed(int key)
-{
-	return keys[key];
+void Window::getMousePos(double& xpos, double& ypos) {
+    xpos = this->xpos;
+    ypos = this->ypos;
 }
 
-//Handling mouse buttons pressed
-bool Window::isMousePressed(int button)
-{
-	return mouseButtons[button];
+bool Window::isPressed(int key) {
+    return keys[key];
 }
 
-//Handling keyboard actions
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
-{
-	Window* wind = (Window*) glfwGetWindowUserPointer(window);
-
-	if (action != GLFW_RELEASE)
-		wind->setKey(key, true);
-	else
-		wind->setKey(key, false);
+bool Window::isMousePressed(int button) {
+    return mouseButtons[button];
 }
 
-//Handling mouse actions
-void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
-{
-	Window* wind = (Window*)glfwGetWindowUserPointer(window);
-
-	if (action != GLFW_RELEASE)
-		wind->setMouseButton(button, true);
-	else
-		wind->setMouseButton(button, false);
+void Window::setPointers(Main_Char* newMainCharacter, Friend* newFriendCharacter, Camera* cam) {
+    healthbar.setCharacterPointers(newMainCharacter, newFriendCharacter);
+    menu.setPointers(newMainCharacter, cam);
+    mc = newMainCharacter;
 }
 
-//Handling cursor position
-void cursor_position_callback(GLFWwindow* window, double xpos, double ypos)
-{
-	Window* wind = (Window*)glfwGetWindowUserPointer(window);
-	wind->setMousePos(xpos, ypos);
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+    Window* wind = (Window*)glfwGetWindowUserPointer(window);
+
+    if (action != GLFW_RELEASE)
+        wind->setKey(key, true);
+    else
+        wind->setKey(key, false);
 }
 
-void Window::handleEscapeToMenuInput() {
-	double currentTime = glfwGetTime();
+void mouse_button_callback(GLFWwindow* window, int button, int action, int mods) {
+    Window* wind = (Window*)glfwGetWindowUserPointer(window);
 
-	// Check if LEFT_ALT is pressed and debounce
-	if (this->isPressed(GLFW_KEY_ESCAPE) && (currentTime - lastMenuToggleTime >= 1.0)) {
-		lastMenuToggleTime = currentTime; // Update the last toggle time
-		menu.toggleVisibility();         // Toggle the menu visibility
-		paused = menu.isMenuVisible();   // Set the paused state based on menu visibility
-
-		// Enable or disable the mouse cursor based on the menu state
-		if (menu.isMenuVisible()) {
-			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-		}
-		else {
-
-			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-		}
-	}
+    if (action != GLFW_RELEASE)
+        wind->setMouseButton(button, true);
+    else
+        wind->setMouseButton(button, false);
 }
 
-
-bool Window::isPaused() {
-	return paused;
+void cursor_position_callback(GLFWwindow* window, double xpos, double ypos) {
+    Window* wind = (Window*)glfwGetWindowUserPointer(window);
+    wind->setMousePos(xpos, ypos);
 }
 
-bool Window::isAnimatingLiquids() {
-	return animatingLiquids;
+void Window::renderGUI() {
+    ImGui_ImplOpenGL3_NewFrame();
+    ImGui_ImplGlfw_NewFrame();
+    ImGui::NewFrame();
+
+    menu.render();
+    healthbar.render();
+    taskGUI.render();
+    invGUI.render();
+    toolGUI.render();
+
+    ImGui::Render();
+    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 
-bool Window::isSpectating() {
-	return spectateMode;
-}
+void Window::handleUIKeyBinds() {
+    double currentTime = glfwGetTime();
 
-void Window::renderGUI(Camera& camera, Main_Char& mc) {
+    if (isPressed(GLFW_KEY_ESCAPE) && (currentTime - lastMenuToggleTime >= 1.0)) {
+        lastMenuToggleTime = currentTime;
+        menu.toggleVisibility();
+    }
 
+    if (!(*paused)) {
+        healthbar.setVisibility(true);
 
-	ImGui_ImplOpenGL3_NewFrame();
-	ImGui_ImplGlfw_NewFrame();
-	ImGui::NewFrame();
-
-	menu.render(paused, spectateMode, animatingLiquids,window, camera, mc);
-	//instructions.render();
-	
-	ImGui::Render();
-	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
+        if (isPressed(GLFW_KEY_E)) {
+            invGUI.setVisibility(true);
+        }
+        else {
+            invGUI.setVisibility(false);
+        }
+    }
+    else {
+        healthbar.setVisibility(false);
+        invGUI.setVisibility(false);
+    }
 }

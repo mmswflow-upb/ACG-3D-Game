@@ -1,5 +1,5 @@
 #include "camera.h"
-
+#include <iostream>
 Camera::Camera(glm::vec3 cameraPosition)
 {
 	this->cameraPosition = cameraPosition;
@@ -28,63 +28,69 @@ Camera::~Camera()
 {
 }
 
-void Camera::keyboardMoveFront(float cameraSpeed, bool spectateMode)
+void Camera::keyboardMoveFront(float cameraSpeed, bool *spectateMode)
 {
+
 	float originalY = cameraPosition.y; // Store the current y position
 	cameraPosition += cameraViewDirection * cameraSpeed;
-	if (!spectateMode) {
+	if (spectateMode && *spectateMode == false) {
 		cameraPosition.y = originalY; // Restore the original y position
 	}
 }
 
-void Camera::keyboardMoveBack(float cameraSpeed, bool spectateMode)
+void Camera::keyboardMoveBack(float cameraSpeed, bool *spectateMode)
 {
+
 	float originalY = cameraPosition.y; // Store the current y position
 	cameraPosition -= cameraViewDirection * cameraSpeed;
-	if (!spectateMode) {
+	if (spectateMode && *spectateMode == false) {
 		cameraPosition.y = originalY; // Restore the original y position
 	}
 }
 
-void Camera::keyboardMoveLeft(float cameraSpeed, bool spectateMode)
+void Camera::keyboardMoveLeft(float cameraSpeed, bool *spectateMode)
 {
+
 	float originalY = cameraPosition.y; // Store the current y position
 	cameraRight = glm::cross(cameraViewDirection, cameraUp);
 	cameraPosition -= cameraRight * cameraSpeed;
-	if (!spectateMode) {
+	if (spectateMode && *spectateMode == false) {
 		cameraPosition.y = originalY; // Restore the original y position
 	}
 }
 
-void Camera::keyboardMoveRight(float cameraSpeed, bool spectateMode)
+void Camera::keyboardMoveRight(float cameraSpeed, bool *spectateMode)
 {
+
 	float originalY = cameraPosition.y; // Store the current y position
 	cameraRight = glm::cross(cameraViewDirection, cameraUp);
 	cameraPosition += cameraRight * cameraSpeed;
-	if (!spectateMode) {
+	if (spectateMode && *spectateMode == false) {
 		cameraPosition.y = originalY; // Restore the original y position
 	}
 }
 
-void Camera::keyboardMoveUp(float cameraSpeed, bool spectateMode)
+void Camera::keyboardMoveUp(float cameraSpeed, bool *spectateMode)
 {
 
-	if (!spectateMode) {
+	if (spectateMode && *spectateMode == false) {
 		return;
 	}
 
 	cameraPosition += cameraUp * cameraSpeed ;
 }
 
-void Camera::keyboardMoveDown(float cameraSpeed, bool spectateMode)
+void Camera::keyboardMoveDown(float cameraSpeed, bool *spectateMode)
 {
-	if (!spectateMode) {
+
+	if (spectateMode && *spectateMode == false) {
 		return;
 	}
 	cameraPosition -= cameraUp * cameraSpeed ;
 }
 
 void Camera::setCursorOrientation(double x, double y) {
+
 
 	if (firstMove) {
 		lastMouseX = x;

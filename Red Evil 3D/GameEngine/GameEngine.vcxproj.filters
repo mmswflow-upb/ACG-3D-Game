@@ -80,7 +80,7 @@
     <ClInclude Include="Graphics\GUI\MenuGUI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\GUI\InstructionsGUI.h">
+    <ClInclude Include="Graphics\GUI\TasksGui.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\imgui\imgui.h">
@@ -110,7 +110,7 @@
     <ClInclude Include="Graphics\imgui\imgui_impl_opengl3_loader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\GUI\HealthBar.h">
+    <ClInclude Include="Graphics\GUI\HealthBarGUI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game\Characters\Enemies\Enemy.h">
@@ -143,9 +143,6 @@
     <ClInclude Include="Resources\Model Packs\DropPacks.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Tasks\Task.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Resources\Model Packs\MapPacks.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -167,6 +164,15 @@
     <ClInclude Include="Resources\Model Packs\AnimatablePacks.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Trackers\GameTracker.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\GUI\ToolGUI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\GUI\InventoryGUI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\vertex_shader.glsl" />
@@ -175,11 +181,41 @@
     <None Include="Shaders\Celestial Shaders\sun_vertex_shader.glsl" />
     <None Include="Shaders\normalvertexshader.glsl" />
     <None Include="Shaders\newshader.glsl" />
-    <None Include="Shaders\Maps Shaders\map_normal_vertex_shader.glsl" />
-    <None Include="Shaders\Maps Shaders\map_normal_fragment_shader.glsl" />
-    <None Include="Shaders\Characters Shaders\mc_normal_fragment_shader.glsl" />
-    <None Include="Shaders\Characters Shaders\mc_normal_vertex_shader.glsl" />
+    <None Include="Shaders\Maps Shaders\FullNoTrees\fullNoTrees_vertex_shader.glsl" />
+    <None Include="Shaders\Maps Shaders\FullNoTrees\fullNoTrees_fragment_shader.glsl" />
+    <None Include="Shaders\Characters Shaders\mc\mc_fragment_shader.glsl" />
+    <None Include="Shaders\Characters Shaders\mc\mc_vertex_shader.glsl" />
+    <None Include="Shaders\GunsShaders\Pistol\pistol_fragment_shader.glsl" />
+    <None Include="Shaders\GunsShaders\Pistol\pistol_vertex_shader.glsl" />
     <None Include="Shaders\Celestial Shaders\moon_fragment_shader.glsl" />
     <None Include="Shaders\Celestial Shaders\moon_vertex_shader.glsl" />
+    <None Include="Shaders\Projectiles Shaders\Bullet Shaders\bullet_fragment_shader.glsl" />
+    <None Include="Shaders\Projectiles Shaders\Bullet Shaders\bullet_vertex_shader.glsl" />
+    <None Include="Shaders\Drops Shaders\medkit\medkit_fragment_shader.glsl" />
+    <None Include="Shaders\Drops Shaders\medkit\medkit_vertex_shader.glsl" />
+    <None Include="Shaders\Characters Shaders\friend\friend_fragment_shader.glsl" />
+    <None Include="Shaders\Characters Shaders\friend\friend_vertex_shader.glsl" />
+    <None Include="Shaders\Characters Shaders\enemy\enemy_fragment_shader.glsl" />
+    <None Include="Shaders\Characters Shaders\enemy\enemy_vertex_shader.glsl" />
+    <None Include="Shaders\Drops Shaders\ammo30\ammo30_vertex_shader.glsl" />
+    <None Include="Shaders\Drops Shaders\ammo30\ammo30_fragment_shader.glsl" />
+    <None Include="Shaders\Drops Shaders\ammo60\ammo60_fragment_shader.glsl" />
+    <None Include="Shaders\Drops Shaders\ammo60\ammo60_vertex_shader.glsl" />
+    <None Include="Shaders\Drops Shaders\ammoSpecial\ammoSpecial_fragment_shader.glsl" />
+    <None Include="Shaders\Drops Shaders\ammoSpecial\ammoSpecial_vertex_shader.glsl" />
+    <None Include="Shaders\Projectiles Shaders\Fireball Shaders\fireball_vertex_shader.glsl" />
+    <None Include="Shaders\Projectiles Shaders\Fireball Shaders\fireball_fragment_shader.glsl" />
+    <None Include="Shaders\Projectiles Shaders\Iceball Shaders\iceball_vertex_shader.glsl" />
+    <None Include="Shaders\Projectiles Shaders\Iceball Shaders\iceball_fragment_shader.glsl" />
+    <None Include="Shaders\Drops Shaders\antidote\antidote_fragment_shader.glsl" />
+    <None Include="Shaders\Drops Shaders\antidote\antidote_vertex_shader.glsl" />
+    <None Include="Shaders\Animatable Shaders\Trees\LavaTree\lavaTree_fragment_shader.glsl" />
+    <None Include="Shaders\Animatable Shaders\Trees\LavaTree\lavaTree_vertex_shader.glsl" />
+    <None Include="Shaders\Animatable Shaders\Trees\NormalTree\normalTree_vertex_shader.glsl" />
+    <None Include="Shaders\Animatable Shaders\Trees\NormalTree\normalTree_fragment_shader.glsl" />
+    <None Include="Shaders\Projectiles Shaders\Laylasaurus Fireball Shaders\laylasaurus_fireball_fragment_shader.glsl" />
+    <None Include="Shaders\Projectiles Shaders\Laylasaurus Fireball Shaders\laylasaurus_fireball_vertex_shader.glsl" />
+    <None Include="Shaders\Animatable Shaders\SeaWater\seawater_fragment_shader.glsl" />
+    <None Include="Shaders\Animatable Shaders\SeaWater\seawater_vertex_shader.glsl" />
   </ItemGroup>
 </Project>

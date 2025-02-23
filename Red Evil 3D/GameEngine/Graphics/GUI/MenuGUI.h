@@ -1,99 +1,75 @@
 #pragma once
 #include "../imgui/imgui.h"
-#include <glfw3.h>
-#include <glew.h>
 #include "../../Camera/camera.h"
 #include "../../Game/Characters/Main Character/Main_Char.h"
+
 class MenuGUI {
 private:
-    bool isVisible; // Tracks whether the menu is currently visible
-    bool spectateMode; // Tracks the state of "Spectate Mode"
-    bool showLiquidAnimation; // Tracks the state of "Show Liquid Animation"
-
+    bool* paused;           // Pointer to paused
+    bool isVisible;
+    bool* spectateMode;
+    bool* showAnimation;
+    Camera* camera;         // Pointer to Camera
+    Main_Char* mc;          // Pointer to Main Character
+    int* screenWidth;       // Pointer to screenWidth
+    int* screenHeight;      // Pointer to screenHeight
 
 public:
-    MenuGUI() : isVisible(false), spectateMode(false), showLiquidAnimation(false) {}
+    MenuGUI(bool* paused, bool* specMode,bool* showAnim, Camera* cam, Main_Char* mainCharacter, int* screenWidth, int* screenHeight)
+        : paused(paused), spectateMode(specMode), isVisible(false), showAnimation(showAnim),
+        camera(cam), screenWidth(screenWidth), screenHeight(screenHeight), mc(mainCharacter) {
+    }
 
     void toggleVisibility() {
         isVisible = !isVisible;
+        *paused = isVisible; // Update the value pointed to by paused
     }
 
-    bool isMenuVisible() const {
-        return isVisible;
+    void setPointers(Main_Char* mainCharacter, Camera* cam) {
+        mc = mainCharacter;
+        camera = cam;
     }
 
-    void MenuGUI::render(bool& paused, bool& spectating, bool& animatingLiquids,GLFWwindow* window, Camera& camera, Main_Char& mc) {
+    void render() {
         if (!isVisible) return;
 
-        // Get the window size
-        int screenWidth, screenHeight;
-        glfwGetWindowSize(window, &screenWidth, &screenHeight);
-
-        // Set the menu size as percentages of the screen size
-        float menuWidth = screenWidth * 0.3f;  // 30% of screen width
-        float menuHeight = screenHeight * 0.4f; // 40% of screen height
+        // Compute window size and center position
+        float menuWidth = (*screenWidth) * 0.3f;
+        float menuHeight = (*screenHeight) * 0.4f;
         ImVec2 menuSize(menuWidth, menuHeight);
-
-        // Calculate the center position
-        ImVec2 centerPos(
-            (screenWidth - menuWidth) / 2.0f,
-            (screenHeight - menuHeight) / 2.0f
-        );
+        ImVec2 centerPos(((*screenWidth) - menuWidth) / 2.0f, ((*screenHeight) - menuHeight) / 2.0f);
 
         ImGui::SetNextWindowPos(centerPos, ImGuiCond_Always);
         ImGui::SetNextWindowSize(menuSize);
 
-        // Disable the minimize arrow using ImGuiWindowFlags_NoCollapse
-        ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoCollapse;
-
-        // Begin the menu window with the specified flags
+        ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove;
         ImGui::Begin("Menu", nullptr, windowFlags);
 
-        // Centered Title
-        ImVec2 windowSize = ImGui::GetWindowSize();
-        float textWidth = ImGui::CalcTextSize("Menu Options").x;
-        ImGui::SetCursorPosX((windowSize.x - textWidth) / 2.0f);
+        // Menu title
         ImGui::Text("Menu Options");
 
-        // Add some spacing
         ImGui::Spacing();
-        ImGui::Spacing();
-
-        // Centered Checkbox: Spectate Mode
-        float buttonWidth = menuWidth * 0.6f; // Buttons are 60% of menu width
-        ImGui::SetCursorPosX((menuSize.x - buttonWidth) / 2.0f);
-        if (ImGui::Checkbox("Spectate Mode", &spectateMode)) {
-            spectating = !spectating;
-            if (!spectating) {
-                // Set camera position to character's position with an offset
-                glm::vec3 characterPos = mc.getPosition();
-                glm::vec3 newCameraPos = characterPos + glm::vec3(0.0f, 1.0f, 0.0f); // Adjust the Y offset as needed
-                camera.setCameraPosition(newCameraPos);
-                
+        if (ImGui::Checkbox("Spectate Mode", spectateMode)) {
+            if (spectateMode && *spectateMode == false) {
+                glm::vec3 characterPos = mc->getPosition();
+                glm::vec3 newCameraPos = characterPos;
+                newCameraPos.y = 20.5f;
+                camera->setCameraPosition(newCameraPos);
             }
         }
 
-        // Add some spacing
-        ImGui::Spacing();
+		if (ImGui::Checkbox("Show Animations", showAnimation)) {
+			if (*showAnimation == false) {
+				std::cout << "Animations are now off\n";
+            }
+            else {
+				std::cout << "Animations are now on\n";
+            }
+		}
 
-        // Centered Checkbox: Show Liquid Animation
-        ImGui::SetCursorPosX((menuSize.x - buttonWidth) / 2.0f);
-        if (ImGui::Checkbox("Show Liquid Animation", &showLiquidAnimation)) {
-            animatingLiquids = !animatingLiquids;
-        }
-
-        // Add some spacing before moving to the bottom
-        ImGui::Spacing();
-
-        // Position Close Button Near the Bottom
-        float closeButtonWidth = menuWidth * 0.4f; // Close button is 40% of menu width
-        float bottomPadding = menuHeight * 0.1f;  // Padding from the bottom of the menu
-        ImGui::SetCursorPosY(menuSize.y - bottomPadding - ImGui::GetFrameHeight());
-        ImGui::SetCursorPosX((menuSize.x - closeButtonWidth) / 2.0f);
-        if (ImGui::Button("Close", ImVec2(closeButtonWidth, 0.0f))) {
-            isVisible = false;
-            paused = false; // Unpause the game when the menu is closed
-            glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED); // Lock the mouse
+        // Close button
+        if (ImGui::Button("Close")) {
+            toggleVisibility();
         }
 
         ImGui::End();

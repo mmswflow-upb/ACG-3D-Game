@@ -30,12 +30,12 @@ class Camera
 		glm::vec3 getCameraViewDirection() const;
 		glm::vec3 getCameraUp() const;
 
-		void keyboardMoveFront(float cameraSpeed, bool spectateMode);
-		void keyboardMoveBack(float cameraSpeed, bool spectateMode);
-		void keyboardMoveLeft(float cameraSpeed, bool );
-		void keyboardMoveRight(float cameraSpeed, bool spectateMode);
-		void keyboardMoveUp(float cameraSpeed, bool spectateMode);
-		void keyboardMoveDown(float cameraSpeed, bool spectateMode);
+		void keyboardMoveFront(float cameraSpeed, bool *spectateMode);
+		void keyboardMoveBack(float cameraSpeed, bool *spectateMode);
+		void keyboardMoveLeft(float cameraSpeed, bool *spectateMode);
+		void keyboardMoveRight(float cameraSpeed, bool *spectateMode);
+		void keyboardMoveUp(float cameraSpeed, bool *spectateMode);
+		void keyboardMoveDown(float cameraSpeed, bool *spectateMode);
 
 		void setCursorOrientation(double x, double y);
 

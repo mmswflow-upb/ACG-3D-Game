@@ -3,16 +3,13 @@
 
 /// Enum class for Gun Packs
 enum class GunPack {
-    Pistol,
-    Rifle,
-    Shotgun,
-    Sniper
+    Pistol
 };
 
 /// Struct for Gun Model Attributes
 struct GunModelAttributes {
-    std::string texturePath;
     std::string modelPath;
+    std::string texturePath;
     std::string vertexShaderPath;
     std::string fragmentShaderPath;
 };
@@ -22,32 +19,12 @@ inline GunModelAttributes getGunModelAttributes(GunPack pack) {
     switch (pack) {
     case GunPack::Pistol:
         return {
-            "Resources/Textures/Guns/pistol.png",
-            "Resources/Models/Guns/pistol.obj",
-            "Shaders/Gun Shaders/pistol_vertex_shader.glsl",
-            "Shaders/Gun Shaders/pistol_fragment_shader.glsl"
+            "Resources/Models/Tools/LowPolyPistol/lowPolyGun.obj",
+            "Resources/Models/Tools/LowPolyPistol/lowPolyGun.bmp",
+            "Shaders/GunsShaders/Pistol/pistol_vertex_shader.glsl",
+            "Shaders/GunsShaders/Pistol/pistol_fragment_shader.glsl"
         };
-    case GunPack::Rifle:
-        return {
-            "Resources/Textures/Guns/rifle.png",
-            "Resources/Models/Guns/rifle.obj",
-            "Shaders/Gun Shaders/rifle_vertex_shader.glsl",
-            "Shaders/Gun Shaders/rifle_fragment_shader.glsl"
-        };
-    case GunPack::Shotgun:
-        return {
-            "Resources/Textures/Guns/shotgun.png",
-            "Resources/Models/Guns/shotgun.obj",
-            "Shaders/Gun Shaders/shotgun_vertex_shader.glsl",
-            "Shaders/Gun Shaders/shotgun_fragment_shader.glsl"
-        };
-    case GunPack::Sniper:
-        return {
-            "Resources/Textures/Guns/sniper.png",
-            "Resources/Models/Guns/sniper.obj",
-            "Shaders/Gun Shaders/sniper_vertex_shader.glsl",
-            "Shaders/Gun Shaders/sniper_fragment_shader.glsl"
-        };
+    
     default:
         return { "", "", "", "" };
     }
@@ -56,47 +33,36 @@ inline GunModelAttributes getGunModelAttributes(GunPack pack) {
 /// Function to get Gun Game Attributes (modifies arguments by reference)
 inline void getGunGameAttributes(
     GunPack pack,
+    std::string& name,
     float& damage,
     float& fireRate,
     int& magazineSize,
     float& reloadTime,
-    float& range
+    float& range,
+    float scale,
+    glm::vec3& position
 ) {
     switch (pack) {
     case GunPack::Pistol:
+        name = "Pistol";
         damage = 25.0f;
         fireRate = 2.0f;
         magazineSize = 12;
         reloadTime = 1.5f;
         range = 20.0f;
+        scale = 5.0f;
+        position = glm::vec3(0.0f, 40.0f, 0.0f); // Default position
         break;
-    case GunPack::Rifle:
-        damage = 35.0f;
-        fireRate = 5.0f;
-        magazineSize = 30;
-        reloadTime = 2.5f;
-        range = 50.0f;
-        break;
-    case GunPack::Shotgun:
-        damage = 80.0f;
-        fireRate = 1.0f;
-        magazineSize = 8;
-        reloadTime = 3.0f;
-        range = 15.0f;
-        break;
-    case GunPack::Sniper:
-        damage = 150.0f;
-        fireRate = 0.5f;
-        magazineSize = 5;
-        reloadTime = 3.5f;
-        range = 100.0f;
-        break;
+    
     default:
+        name = "None";
         damage = 0.0f;
         fireRate = 0.0f;
         magazineSize = 0;
         reloadTime = 0.0f;
         range = 0.0f;
+        scale = 1.0f, // Default scale
+        position = glm::vec3(0.0f, 0.0f, 0.0f); // Default position
         break;
     }
 }
